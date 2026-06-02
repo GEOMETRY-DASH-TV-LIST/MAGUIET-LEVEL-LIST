@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,6 +26,12 @@
             
             --font-display: 'Orbitron', sans-serif;
             --font-main: 'Plus Jakarta Sans', sans-serif;
+
+            /* Colores de Alerta del Sistema de Noticias Integrado */
+            --rojo-alerta: #ff3b30;
+            --rojo-glow: rgba(255, 59, 48, 0.6);
+            --verde-nueva: #4cd964;
+            --amarillo-cambio: #ffcc00;
         }
 
         /* --- SCROLLBAR PREMIUM --- */
@@ -81,7 +86,6 @@
         }
         .brand-container:hover .brand-logo { transform: rotate(15deg) scale(1.15); filter: brightness(1.2); }
 
-        /* Icono pequeño de la ranita para el Leaderboard */
         .leaderboard-frog-badge {
             width: 18px; height: 18px; border-radius: 50%; object-fit: cover;
             vertical-align: middle; margin-left: 6px; border: 1px solid var(--brand-yellow);
@@ -101,12 +105,25 @@
             overflow-x: hidden; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding-top: 90px; border-right: 2px solid var(--orange); backdrop-filter: blur(25px);
             box-shadow: 0 0 40px rgba(255, 140, 0, 0.15);
         }
+        .sidebar.alerta-activa {
+            border-right: 2px solid var(--rojo-alerta);
+            box-shadow: 0 0 40px var(--rojo-glow);
+        }
         .sidebar a { padding: 18px 36px; text-decoration: none; font-size: 0.9rem; color: #8b949e; display: block; transition: 0.3s; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; position: relative; }
         .sidebar a::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 0; background: linear-gradient(to bottom, var(--orange), var(--brand-yellow)); transition: 0.3s; }
         .sidebar a:hover { color: #fff; background: rgba(255, 140, 0, 0.03); padding-left: 44px; text-shadow: 0 0 10px var(--orange-glow); }
         .sidebar a:hover::before { width: 4px; }
         
-        /* Botón X de cierre en el Sidebar */
+        .sidebar a.btn-noticias.encendido {
+            color: var(--rojo-alerta);
+            text-shadow: 0 0 10px var(--rojo-glow);
+            animation: pulsoAlerta 2s infinite;
+        }
+        .sidebar a.btn-noticias.encendido::before {
+            background: linear-gradient(to bottom, var(--rojo-alerta), #ff6b6b);
+        }
+        @keyframes pulsoAlerta { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
         .sidebar-close-btn {
             position: absolute; top: 20px; right: 24px; font-size: 24px; cursor: pointer;
             color: #6e7681; font-family: var(--font-display); transition: all 0.3s ease;
@@ -117,7 +134,6 @@
         .sidebar-stats div { margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
         .sidebar-stats span { font-family: var(--font-display); color: var(--brand-yellow); font-weight: bold; font-size: 1rem; text-shadow: 0 0 8px var(--brand-yellow-glow); }
 
-        /* Capa oscurecedora del fondo cuando abre el Sidebar */
         .sidebar-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
@@ -144,6 +160,39 @@
         }
         .tab-btn:hover { border-color: var(--orange); color: #fff; transform: translateY(-2px); }
         .tab-btn.active { background: #fff; border-color: #fff; color: #000; font-weight: 800; box-shadow: 0 4px 15px rgba(255,255,255,0.2); transform: scale(1.05); }
+
+        /* --- FILTROS DE LA PESTAÑA DE NOTICIAS --- */
+        .noticias-header-panel {
+            display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; backdrop-filter: blur(12px);
+        }
+        .noticias-selects-container { display: flex; gap: 10px; flex-wrap: wrap; }
+        .noticias-select {
+            background: rgba(5, 7, 10, 0.8); border: 1px solid var(--border); color: var(--text-main);
+            padding: 12px 16px; border-radius: 10px; font-family: var(--font-main); font-size: 0.85rem;
+            outline: none; cursor: pointer; min-width: 140px; transition: border-color 0.3s;
+        }
+        .noticias-select:focus { border-color: var(--orange); }
+
+        /* --- HISTORIAL DE NOTICIAS --- */
+        .noticias-feed { display: flex; flex-direction: column; gap: 14px; }
+        .noticia-item-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 18px 24px; display: flex; flex-direction: column; gap: 8px;
+            border-left: 4px solid #8b949e; backdrop-filter: blur(12px); animation: smoothUp 0.4s ease both;
+        }
+        .noticia-item-card.imp-critico { border-left-color: var(--rojo-alerta); box-shadow: inset 4px 0 10px rgba(255, 59, 48, 0.05); }
+        .noticia-item-card.imp-importante { border-left-color: var(--orange); box-shadow: inset 4px 0 10px rgba(255, 140, 0, 0.05); }
+        .noticia-item-card.imp-general { border-left-color: var(--brand-yellow); box-shadow: inset 4px 0 10px rgba(255, 204, 0, 0.05); }
+
+        .noticia-item-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+        .noticia-label-tag { font-family: var(--font-display); }
+        .imp-critico .noticia-label-tag { color: var(--rojo-alerta); }
+        .imp-importante .noticia-label-tag { color: var(--orange); }
+        .imp-general .noticia-label-tag { color: var(--brand-yellow); }
+        .noticia-item-date { color: #6e7681; font-weight: 500; }
+        .noticia-item-body { font-size: 0.95rem; line-height: 1.5; color: #cdd9e5; }
+        .noticia-item-body strong { color: #fff; font-weight: 700; }
 
         /* --- SECCIONES MAIN --- */
         .main-content { padding: 30px 20px; max-width: 960px; margin: auto; }
@@ -199,11 +248,11 @@
         .badge-insane { background: linear-gradient(90deg, #ff5100, #ffcc00); animation: glitchHeavy 0.25s infinite; }
         .badge-insane::before { display: block; left: -1px; text-shadow: -1px 0 #ffae00; clip-path: inset(20% 0 50% 0); animation: glitchNoise1 0.25s infinite linear; }
 
-        .badge-hard { background: linear-gradient(90deg, #ff7b00, #ffae00); animation: glitchMedium 0.4s infinite; }
+        .badge-hard { background: linear-gradient(90deg, #ff7b00, #ffae00); animation: glitchMedium 0.1s infinite; }
         .badge-medium { background: linear-gradient(90deg, #ff9100, #ffdb4d); animation: glitchMedium 0.6s infinite alternate; }
         .badge-easy { background: linear-gradient(90deg, #ffa600, #55efc4); animation: glitchLight 1.2s infinite ease-in-out; }
-        .badge-supereasy { background: rgba(255,255,255,0.08); color: #8b949e; border: 1px solid rgba(255,255,255,0.1); animation: glitchLight 2s infinite ease-in-out; }
 
+        .badge-supereasy { background: rgba(255,255,255,0.08); color: #8b949e; border: 1px solid rgba(255,255,255,0.1); animation: glitchLight 2s infinite ease-in-out; }
         @keyframes glitchCritical { 0% { transform: translate(0) skew(0deg); } 10% { transform: translate(-3px, 1px) skew(-6deg); } 20% { transform: translate(2px, -2px) skew(4deg); } 40% { transform: translate(3px, 2px) skew(8deg); } 50% { transform: translate(-2px, 1px) skew(-4deg); } 100% { transform: translate(0) skew(0deg); } }
         @keyframes glitchHeavy { 0%, 100% { transform: translate(0) skewX(0deg); } 20% { transform: translate(-2px, 2px) skewX(-4deg); } 40% { transform: translate(1px, -1px) skewX(4deg); } 60% { transform: translate(-2px, -2px) skewX(2deg); } 80% { transform: translate(2px, 1px) skewX(-2deg); } }
         @keyframes glitchMedium { 0%, 90%, 100% { transform: translate(0) scale(1); } 92% { transform: translate(-1.5px, 0.5px) skewX(-3deg); } 95% { transform: translate(1.5px, -1px) skewX(3deg); } }
@@ -220,6 +269,11 @@
         .pts-txt { font-size: 0.55rem; text-transform: uppercase; color: #6e7681; letter-spacing: 1px; margin-bottom: 2px; }
         .pts-extra { font-size: 0.75rem; color: var(--brand-yellow); font-weight: 700; font-family: var(--font-display); opacity: 0.85; margin-top: 4px; text-shadow: 0 0 5px var(--brand-yellow-glow); }
         .event-desc-inline { color: #8b949e; font-size: 0.85rem; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- APIS GD STYLES --- */
+        .gd-api-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px; }
+        .gd-api-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; font-size: 0.85rem; }
+        .gd-api-box span { color: var(--brand-yellow); font-weight: 600; display: block; margin-top: 2px; font-family: var(--font-display); }
 
         /* --- LEADERBOARD --- */
         .player-card { background: var(--bg-card); padding: 18px 24px; margin-bottom: 12px; border-radius: 14px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; transition: all 0.25s ease; cursor: pointer; }
@@ -274,6 +328,8 @@
         .up-btn:hover svg { fill: var(--brand-yellow); }
         .reglas-title { font-family: var(--font-display); color: var(--orange); margin-bottom: 20px; font-weight: 900; letter-spacing: 1px; }
 
+        .cyber-empty-loader { text-align: center; padding: 30px; color: #6e7681; font-style: italic; position: relative; }
+
         @media (max-width: 650px) {
             .level-card { flex-direction: column; align-items: flex-start; padding: 18px; }
             .level-thumb-container { width: 100%; height: 160px; margin-bottom: 14px; margin-right: 0; }
@@ -300,9 +356,10 @@
     <div id="mySidebar" class="sidebar">
         <span class="sidebar-close-btn" onclick="closeNav()">&times;</span>
 
+        <a href="#" class="btn-noticias" id="sidebar-btn-noticias" onclick="showSection('noticias'); closeNav()">Noticias<span id="sidebar-alert-dot"></span></a>
         <a href="#" onclick="showSection('lista'); closeNav()">Niveles</a>
         <a href="#" onclick="showSection('challenges'); closeNav()">Challenges</a>
-        <a href="#" onclick="showSection('verificaciones'); closeNav()">Carrera de Verificaciones</a>
+        <a href="#" onclick="showSection('verificaciones'); closeNav()">FIRST VICTORS</a>
         <a href="#" onclick="showSection('eventos'); closeNav()">Eventos</a>
         <a href="#" onclick="showSection('leaderboard'); closeNav()">Leaderboard</a>
         <a href="#" onclick="showSection('reglas'); closeNav()">Reglas</a>
@@ -327,6 +384,35 @@
                 <button class="tab-btn" onclick="setRangeFilter('easy', this)">Easy</button>
                 <button class="tab-btn" onclick="setRangeFilter('super easy', this)">Super Easy</button>
             </div>
+        </div>
+
+        <div id="noticias" class="section">
+            <h2 style="color:var(--orange); margin-bottom:24px; font-weight:900; letter-spacing:1px; font-family:var(--font-display);">HISTORIAL DE ACTUALIZACIONES</h2>
+            
+            <div class="noticias-header-panel">
+                <input type="text" class="search-input" id="noticias-internal-search" placeholder="Buscar en el historial de noticias..." oninput="renderNoticiasFeed()">
+                <div class="noticias-selects-container">
+                    <select class="noticias-select" id="noticias-filter-seccion" onchange="renderNoticiasFeed()">
+                        <option value="all">Todas las Secciones</option>
+                        <option value="Niveles">Niveles / Challenges</option>
+                        <option value="Records">Récords / Victorias</option>
+                        <option value="Eventos">Eventos</option>
+                    </select>
+                    <select class="noticias-select" id="noticias-filter-importancia" onchange="renderNoticiasFeed()">
+                        <option value="all">Toda Importancia</option>
+                        <option value="critico">🚨 Crítico</option>
+                        <option value="importante">🔥 Importante</option>
+                        <option value="general">⚙️ General</option>
+                    </select>
+                    <select class="noticias-select" id="noticias-filter-tiempo" onchange="renderNoticiasFeed()">
+                        <option value="24h">⚡ Últimas 24 Horas</option>
+                        <option value="semanal">🗓️ Cambios Semanales</option>
+                        <option value="mensual" selected>📊 Historial Mensual</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="noticias-feed" id="noticias-cards-container"></div>
         </div>
 
         <div id="lista" class="section section-active">
@@ -386,7 +472,6 @@
 
         let levels = [], players = [], victors = [], challenges = [], challengesVictors = [], verificaciones = [], verificacionesVictors = [], eventos = [], eventosVictors = [], currentSection = 'lista', rangeFilter = 'all';
 
-        // Funciones del Sidebar renovadas
         function openNav() {
             document.getElementById("mySidebar").style.width = "var(--sidebar-width)";
             const overlay = document.getElementById("sidebarOverlay");
@@ -524,6 +609,8 @@
                     }
                 }
 
+                ejecutarMotorRadarNoticias();
+
                 document.getElementById('stat-l').innerText = levels.length; 
                 document.getElementById('stat-c').innerText = challenges.length; 
                 document.getElementById('stat-v').innerText = verificaciones.length;
@@ -535,7 +622,8 @@
         function getPodiumClass(index) { if (index === 0) return 'top-1'; if (index === 1) return 'top-2'; if (index === 2) return 'top-3'; return ''; }
 
         function renderAll() {
-            levels.sort((a,b) => b.puntos - a.puntos); challenges.sort((a,b) => b.puntos - a.puntos); verificaciones.sort((a,b) => b.puntos - a.puntos); eventos.sort((a,b) => b.puntos - a.puntos); players.sort((a,b) => b.puntos - a.puntos);
+            levels.sort((a,b) => b.puntos - a.puntos); challenges.sort((a,b) => b.puntos - a.puntos); verificaciones.sort((a,b) => b.puntos - a.puntos); eventos.sort((a,b) => b.puntos - a.puntos);
+            players.sort((a,b) => b.puntos - a.puntos);
 
             const lContainer = document.getElementById('levels-container'); lContainer.innerHTML = "";
             levels.forEach((l, i) => {
@@ -557,7 +645,7 @@
 
             const cContainer = document.getElementById('challenges-container'); cContainer.innerHTML = "";
             if (challenges.length === 0) { 
-                cContainer.innerHTML = `<div class="cyber-empty-loader"><div class="cyber-scanner-bar"></div><p style="font-style:italic;">No hay challenges cargados.</p></div>`; 
+                cContainer.innerHTML = `<div class="cyber-empty-loader"><p>No hay challenges cargados.</p></div>`; 
             } else {
                 challenges.forEach((c, i) => {
                     const imgUrl = c.thumbID ? `https://i.ytimg.com/vi/${c.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
@@ -577,7 +665,7 @@
 
             const vContainer = document.getElementById('verificaciones-container'); vContainer.innerHTML = "";
             if (verificaciones.length === 0) {
-                vContainer.innerHTML = `<div class="cyber-empty-loader"><div class="cyber-scanner-bar"></div><p style="font-style:italic;">No hay niveles de verificación cargados.</p></div>`;
+                vContainer.innerHTML = `<div class="cyber-empty-loader"><p>No hay niveles de verificación cargados.</p></div>`;
             } else {
                 verificaciones.forEach((v, i) => {
                     const imgUrl = v.thumbID ? `https://i.ytimg.com/vi/${v.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
@@ -599,7 +687,7 @@
 
             const evContainer = document.getElementById('eventos-container'); evContainer.innerHTML = "";
             if (eventos.length === 0) {
-                evContainer.innerHTML = `<div class="cyber-empty-loader"><div class="cyber-scanner-bar"></div><p style="font-style:italic;">No hay eventos activos.</p></div>`;
+                evContainer.innerHTML = `<div class="cyber-empty-loader"><p>No hay eventos activos.</p></div>`;
             } else {
                 eventos.forEach((ev, i) => {
                     const imgUrl = ev.thumbID ? `https://i.ytimg.com/vi/${ev.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23222" width="160" height="90"></svg>';
@@ -646,6 +734,8 @@
             const query = document.getElementById('global-search').value.toLowerCase();
             let target = currentSection === 'lista' ? '#levels-container .level-card' : (currentSection === 'challenges' ? '#challenges-container .level-card' : (currentSection === 'verificaciones' ? '#verificaciones-container .level-card' : (currentSection === 'eventos' ? '#eventos-container .level-card' : '#players-container .player-card')));
             
+            if (currentSection === 'noticias' || currentSection === 'reglas') return;
+
             document.querySelectorAll(target).forEach(card => {
                 const content = card.getAttribute('data-search') || ''; const cardRango = card.getAttribute('data-rango') || 'super easy';
                 let mQ = content.includes(query); let mR = (currentSection === 'leaderboard' || rangeFilter === 'all' || cardRango === rangeFilter);
@@ -653,8 +743,167 @@
             });
         }
 
+        // --- MOTOR RADAR DE CAMBIOS AUTOMÁTICOS ---
+        function ejecutarMotorRadarNoticias() {
+            let backupAnterior = JSON.parse(localStorage.getItem('maguiet_radar_backup')) || null;
+            let historialNoticias = JSON.parse(localStorage.getItem('maguiet_noticias_perpetuo')) || [];
+            let hayCambioUltimas24h = false;
+            const ahora = new Date().getTime();
+
+            let instantaneoActual = {
+                levels: levels.map(x => ({ nombre: x.nombre, puntos: x.puntos, creador: x.creador })),
+                challenges: challenges.map(x => ({ nombre: x.nombre, puntos: x.puntos, creador: x.creador })),
+                verificaciones: verificaciones.map(x => ({ nombre: x.nombre, creador: x.creador })),
+                eventos: eventos.map(x => ({ nombre: x.nombre, desc: x.desc, puntos: x.puntos })),
+                v_count: victors.length,
+                c_count: challengesVictors.length
+            };
+
+            if (!backupAnterior) {
+                localStorage.setItem('maguiet_radar_backup', JSON.stringify(instantaneoActual));
+                return;
+            }
+
+            ['levels', 'challenges'].forEach(sec => {
+                instantaneoActual[sec].forEach(item => {
+                    let viejo = backupAnterior[sec].find(v => v.nombre.toLowerCase() === item.nombre.toLowerCase());
+                    if (!viejo) {
+                        historialNoticias.push({
+                            seccion: 'Niveles', rango: 'importante', timestamp: ahora,
+                            texto: `🟢 ¡Contenido Nuevo! Se ingresó el nivel <strong>${item.nombre}</strong> por <strong>${item.creador}</strong> dando ${item.puntos} PTS.`
+                        });
+                        hayCambioUltimas24h = true;
+                    } else if (viejo.puntos !== item.puntos) {
+                        historialNoticias.push({
+                            seccion: 'Niveles', rango: 'critico', timestamp: ahora,
+                            texto: `⚙️ Modificación de Balance: El nivel <strong>${item.nombre}</strong> cambió su valor de recompensa a <strong>${item.puntos} PTS</strong> (Antes: ${viejo.puntos} PTS).`
+                        });
+                        hayCambioUltimas24h = true;
+                    }
+                });
+            });
+
+            if (instantaneoActual.v_count > backupAnterior.v_count) {
+                historialNoticias.push({
+                    seccion: 'Records', rango: 'importante', timestamp: ahora,
+                    texto: `🔥 ¡Nuevo Récord Registrado! Se han añadido nuevas marcas o victorias en la lista oficial de Niveles.`
+                });
+                hayCambioUltimas24h = true;
+            }
+            if (instantaneoActual.c_count > backupAnterior.c_count) {
+                historialNoticias.push({
+                    seccion: 'Records', rango: 'importante', timestamp: ahora,
+                    texto: `🏆 ¡Challenge Superado! Se detectaron nuevos registros completados dentro de la división de Challenges.`
+                });
+                hayCambioUltimas24h = true;
+            }
+
+            localStorage.setItem('maguiet_noticias_perpetuo', JSON.stringify(historialNoticias));
+            localStorage.setItem('maguiet_radar_backup', JSON.stringify(instantaneoActual));
+
+            const sidebar = document.getElementById('mySidebar');
+            const btnNoticias = document.getElementById('sidebar-btn-noticias');
+            const dot = document.getElementById('sidebar-alert-dot');
+
+            if (hayCambioUltimas24h) {
+                sidebar.classList.add('alerta-activa');
+                btnNoticias.classList.add('encendido');
+                dot.innerText = " 🔴";
+            } else {
+                sidebar.classList.remove('alerta-activa');
+                btnNoticias.classList.remove('encendido');
+                dot.innerText = "";
+            }
+        }
+
+        function renderNoticiasFeed() {
+            const container = document.getElementById('noticias-cards-container');
+            const search = document.getElementById('noticias-internal-search').value.toLowerCase();
+            const filterSec = document.getElementById('noticias-filter-seccion').value;
+            const filterImp = document.getElementById('noticias-filter-importancia').value;
+            const filterTime = document.getElementById('noticias-filter-tiempo').value;
+
+            let noticias = JSON.parse(localStorage.getItem('maguiet_noticias_perpetuo')) || [];
+            container.innerHTML = "";
+
+            const ahora = new Date().getTime();
+            let limiteTiempo = ahora - (30 * 24 * 60 * 60 * 1000); 
+
+            if (filterTime === '24h') limiteTiempo = ahora - (24 * 60 * 60 * 1000);
+            if (filterTime === 'semanal') limiteTiempo = ahora - (7 * 24 * 60 * 60 * 1000);
+
+            let filtradas = noticias.filter(n => {
+                if (n.timestamp < limiteTiempo) return false;
+                if (filterSec !== 'all' && n.seccion !== filterSec) return false;
+                if (filterImp !== 'all' && n.rango !== filterImp) return false;
+                if (search && !n.texto.toLowerCase().includes(search)) return false;
+                return true;
+            });
+
+            filtradas.sort((a, b) => b.timestamp - a.timestamp);
+
+            if (filtradas.length === 0) {
+                container.innerHTML = `<div class="cyber-empty-loader">No hay novedades en este rango de tiempo con los filtros seleccionados.</div>`;
+                return;
+            }
+
+            filtradas.forEach(n => {
+                let fechaObj = new Date(n.timestamp);
+                let fechaFormateada = fechaObj.toLocaleDateString() + " " + fechaObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                container.innerHTML += `
+                    <div class="noticia-item-card imp-${n.rango}">
+                        <div class="noticia-item-top">
+                            <span class="noticia-label-tag">${n.rango}</span>
+                            <span class="noticia-item-date">${fechaFormateada}</span>
+                        </div>
+                        <div class="noticia-item-body">${n.texto}</div>
+                    </div>`;
+            });
+        }
+
+        // --- CONEXIÓN DIRECTA CON LA API DE GDBROWSER ---
+        async function fetchGDBrowserData(levelName, targetContainerId) {
+            const container = document.getElementById(targetContainerId);
+            if (!container) return;
+
+            try {
+                // Buscamos el nivel por su nombre exacto en la API pública de GDBrowser
+                const response = await fetch(`https://gdbrowser.com/api/search/${encodeURIComponent(levelName)}?count=1`);
+                if (!response.ok) throw new Error();
+                
+                const data = await response.json();
+                if (!data || data.length === 0) {
+                    container.innerHTML = `<div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.6;">Datos de GD API no disponibles para este nivel.</div>`;
+                    return;
+                }
+
+                const levelInfo = data[0];
+                
+                // Formatear duración de segundos a MM:SS
+                let lengthStr = levelInfo.length || "Short";
+                let rawSeconds = levelInfo.seconds || 0;
+                let durationFormated = "-";
+                if(rawSeconds > 0) {
+                    let mins = Math.floor(rawSeconds / 60);
+                    let secs = rawSeconds % 60;
+                    durationFormated = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                }
+
+                container.innerHTML = `
+                    <div class="gd-api-box">ID del Nivel: <span>${levelInfo.id || "-"}</span></div>
+                    <div class="gd-api-box">Objetos: <span>${levelInfo.objects ? levelInfo.objects.toLocaleString() : "-"}</span></div>
+                    <div class="gd-api-box">Canción: <span style="font-family:var(--font-main); font-size:0.75rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${levelInfo.songName || "Oficial"}</span></div>
+                    <div class="gd-api-box">Duración: <span>${durationFormated} (${lengthStr})</span></div>
+                `;
+            } catch (error) {
+                container.innerHTML = `<div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.6;">Error al conectar con GDBrowser.</div>`;
+            }
+        }
+
         function openLevelById(id, type) {
             let l, recs = [], videoMarkup = "", modalBodyHTML = "";
+            const apiBoxId = `gd-api-data-${id}`;
 
             if (type === 'evento') {
                 l = eventos.find(x => x.id === id); if (!l) return;
@@ -672,7 +921,7 @@
                             <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight:800;">Récords registrados</p>
                             <div style="max-height: 200px; overflow-y: auto; padding-right:4px;">
                                 ${recs.length ? recs.map(r => `<div class="stat-item"><b>${r.jugador}</b> <span style="color:var(--orange); font-family:var(--font-display); font-weight:bold;">${r.porcentaje}</span></div>`).join('') : `
-                                    <div class="cyber-empty-loader" style="padding:20px;"><div class="cyber-scanner-bar" style="width:40px;"></div><p style="font-size:0.8rem; font-style:italic;">No hay récords todavía.</p></div>`}
+                                    <div class="cyber-empty-loader" style="padding:20px;"><p style="font-size:0.8rem;">No hay récords todavía.</p></div>`}
                             </div>
                         </div>
                     </div>`;
@@ -693,12 +942,18 @@
                     ${videoMarkup}
                     <div class="modal-body">
                         <h2 style="font-family:var(--font-display); color:var(--orange); font-weight:900; text-transform: uppercase; letter-spacing:1px; font-size:1.3rem; text-shadow:0 0 10px var(--orange-glow);">${l.nombre} ${extraModalHTML}</h2>
-                        <p style="font-family:var(--font-display); color:var(--brand-yellow); font-weight: 700; font-size:0.85rem; margin-bottom: 24px;">CREADO POR ${l.creador.toUpperCase()}</p>
+                        <p style="font-family:var(--font-display); color:var(--brand-yellow); font-weight: 700; font-size:0.85rem; margin-bottom: 16px;">CREADO POR ${l.creador.toUpperCase()}</p>
+                        
+                        <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-weight:800;">Información del Servidor (GD API)</p>
+                        <div class="gd-api-grid" id="${apiBoxId}">
+                            <div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.5; font-style:italic;">Cargando especificaciones desde GDBrowser...</div>
+                        </div>
+
                         <div>
                             <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight:800;">Récords registrados</p>
-                            <div style="max-height: 200px; overflow-y: auto; padding-right:4px;">
+                            <div style="max-height: 160px; overflow-y: auto; padding-right:4px;">
                                 ${recs.length ? recs.map(r => `<div class="stat-item"><b>${r.jugador}</b> <span style="color:var(--orange); font-family:var(--font-display); font-weight:bold;">${r.porcentaje}</span></div>`).join('') : `
-                                    <div class="cyber-empty-loader" style="padding:20px;"><div class="cyber-scanner-bar" style="width:40px;"></div><p style="font-size:0.8rem; font-style:italic;">No hay récords todavía.</p></div>`}
+                                    <div class="cyber-empty-loader" style="padding:20px;"><p style="font-size:0.8rem;">No hay récords todavía.</p></div>`}
                             </div>
                         </div>
                     </div>`;
@@ -709,6 +964,11 @@
             const contentEl = document.querySelector('.modal-content');
             overlayEl.style.display = 'flex';
             setTimeout(() => { contentEl.classList.add('active'); }, 10);
+
+            // Si es un nivel válido, ejecutamos de fondo la consulta a la API de GDBrowser usando su nombre
+            if (type !== 'evento') {
+                fetchGDBrowserData(l.nombre, apiBoxId);
+            }
         }
 
         function openPlayerById(id) {
@@ -724,7 +984,7 @@
                     <div style="max-height: 220px; overflow-y: auto; margin-bottom: 20px; padding-right:4px;">
                         <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight:800;">Niveles Completados</p>
                         ${hasPassedRecord ? `<div class="stat-item" style="font-weight:600;">${p.actual}</div>` : `
-                            <div class="cyber-empty-loader" style="padding:25px;"><div class="cyber-scanner-bar" style="width:50px;"></div><p style="font-size:0.8rem; font-style:italic;">No hay niveles completados.</p></div>`}
+                            <div class="cyber-empty-loader" style="padding:25px;"><p style="font-size:0.8rem;">No hay niveles completados en la lista.</p></div>`}
                     </div>
 
                     <div class="stat-item trophy-record">
@@ -750,8 +1010,11 @@
         function showSection(id) {
             currentSection = id; document.querySelectorAll('.section').forEach(s => s.classList.remove('section-active')); document.getElementById(id).classList.add('section-active');
             const searchBox = document.getElementById('search-box');
-            if (id === 'reglas') { searchBox.style.display = 'none'; } 
-            else { 
+            
+            if (id === 'reglas' || id === 'noticias') { 
+                searchBox.style.display = 'none'; 
+                if (id === 'noticias') renderNoticiasFeed();
+            } else { 
                 searchBox.style.display = 'block'; 
                 document.getElementById('quick-filters').style.display = (id === 'leaderboard') ? 'none' : 'flex'; 
                 document.getElementById('global-search').value = ''; 
