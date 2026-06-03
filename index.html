@@ -4,37 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAGUIET SERVER LIST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Colores de Marca Maguiet */
             --orange: #ff8c00; 
             --orange-glow: rgba(255, 140, 0, 0.4);
             --brand-yellow: #ffcc00;
             --brand-yellow-glow: rgba(255, 204, 0, 0.3);
-            
             --bg-body: #05070a;
             --bg-card: rgba(13, 17, 23, 0.65); 
             --border: rgba(255, 255, 255, 0.08); 
             --border-hover: rgba(255, 140, 0, 0.4);
             --text-main: #f0f3f6;
             --sidebar-width: 280px;
-            
             --gold-grad: linear-gradient(135deg, #ffe066, #f5b041);
             --silver-grad: linear-gradient(135deg, #e5e8e8, #95a5a6);
             --bronze-grad: linear-gradient(135deg, #edbb99, #ca6f1e);
-            
             --font-display: 'Orbitron', sans-serif;
             --font-main: 'Plus Jakarta Sans', sans-serif;
-
-            /* Colores de Alerta del Sistema de Noticias Integrado */
             --rojo-alerta: #ff3b30;
             --rojo-glow: rgba(255, 59, 48, 0.6);
             --verde-nueva: #4cd964;
             --amarillo-cambio: #ffcc00;
         }
 
-        /* --- SCROLLBAR PREMIUM --- */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-body); }
         ::-webkit-scrollbar-thumb { background: rgba(255, 140, 0, 0.1); border-radius: 20px; transition: 0.3s; }
@@ -62,7 +57,6 @@
             background-size: 40px 40px; opacity: 0.6; z-index: -1;
         }
 
-        /* --- NAVBAR ANIMADA --- */
         .top-navbar {
             background: rgba(5, 7, 10, 0.8); padding: 12px 28px; display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid rgba(255, 140, 0, 0.25); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -99,88 +93,51 @@
         }
         .site-title span { color: var(--orange); -webkit-text-fill-color: initial; text-shadow: 0 0 15px var(--orange-glow); }
 
-        /* --- SIDEBAR --- */
         .sidebar {
             height: 100vh; width: 0; position: fixed; z-index: 1500; top: 0; left: 0; background-color: rgba(4, 6, 9, 0.98);
             overflow-x: hidden; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding-top: 90px; border-right: 2px solid var(--orange); backdrop-filter: blur(25px);
             box-shadow: 0 0 40px rgba(255, 140, 0, 0.15);
         }
-        .sidebar.alerta-activa {
-            border-right: 2px solid var(--rojo-alerta);
-            box-shadow: 0 0 40px var(--rojo-glow);
-        }
+        .sidebar.alerta-activa { border-right: 2px solid var(--rojo-alerta); box-shadow: 0 0 40px var(--rojo-glow); }
         .sidebar a { padding: 18px 36px; text-decoration: none; font-size: 0.9rem; color: #8b949e; display: block; transition: 0.3s; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; position: relative; }
         .sidebar a::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 0; background: linear-gradient(to bottom, var(--orange), var(--brand-yellow)); transition: 0.3s; }
         .sidebar a:hover { color: #fff; background: rgba(255, 140, 0, 0.03); padding-left: 44px; text-shadow: 0 0 10px var(--orange-glow); }
         .sidebar a:hover::before { width: 4px; }
         
-        .sidebar a.btn-noticias.encendido {
-            color: var(--rojo-alerta);
-            text-shadow: 0 0 10px var(--rojo-glow);
-            animation: pulsoAlerta 2s infinite;
-        }
-        .sidebar a.btn-noticias.encendido::before {
-            background: linear-gradient(to bottom, var(--rojo-alerta), #ff6b6b);
-        }
+        .sidebar a.btn-noticias.encendido { color: var(--rojo-alerta); text-shadow: 0 0 10px var(--rojo-glow); animation: pulsoAlerta 2s infinite; }
+        .sidebar a.btn-noticias.encendido::before { background: linear-gradient(to bottom, var(--rojo-alerta), #ff6b6b); }
         @keyframes pulsoAlerta { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 
-        .sidebar-close-btn {
-            position: absolute; top: 20px; right: 24px; font-size: 24px; cursor: pointer;
-            color: #6e7681; font-family: var(--font-display); transition: all 0.3s ease;
-        }
+        .sidebar-close-btn { position: absolute; top: 20px; right: 24px; font-size: 24px; cursor: pointer; color: #6e7681; font-family: var(--font-display); transition: all 0.3s ease; }
         .sidebar-close-btn:hover { color: var(--orange); transform: scale(1.1) rotate(90deg); }
 
         .sidebar-stats { padding: 30px 36px; border-top: 1px solid var(--border); margin-top: 30px; color: #6e7681; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
         .sidebar-stats div { margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
         .sidebar-stats span { font-family: var(--font-display); color: var(--brand-yellow); font-weight: bold; font-size: 1rem; text-shadow: 0 0 8px var(--brand-yellow-glow); }
 
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-            z-index: 1400; display: none; opacity: 0; transition: opacity 0.3s ease;
-        }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vw; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 1400; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { display: block; opacity: 1; }
 
-        /* --- FILTROS ANIMADOS --- */
         .search-container { margin-bottom: 30px; width: 100%; animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .search-input {
-            width: 100%; padding: 16px 24px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 14px;
-            color: #fff; font-family: var(--font-main); font-size: 1rem; transition: all 0.3s ease; outline: none;
-        }
+        .search-input { width: 100%; padding: 16px 24px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 14px; color: #fff; font-family: var(--font-main); font-size: 1rem; transition: all 0.3s ease; outline: none; }
         .search-input:focus { border-color: var(--orange); box-shadow: 0 0 25px rgba(255,140,0,0.15); background: rgba(0,0,0,0.5); }
 
         .filter-tabs { display: flex; gap: 8px; margin-top: 16px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
         .filter-tabs::-webkit-scrollbar { display: none; }
         
-        .tab-btn {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); color: #8b949e; padding: 10px 18px; border-radius: 30px;
-            cursor: pointer; font-size: 0.75rem; font-weight: 700; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); white-space: nowrap; font-family: var(--font-main); text-transform: uppercase;
-        }
+        .tab-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); color: #8b949e; padding: 10px 18px; border-radius: 30px; cursor: pointer; font-size: 0.75rem; font-weight: 700; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); white-space: nowrap; font-family: var(--font-main); text-transform: uppercase; }
         .tab-btn:hover { border-color: var(--orange); color: #fff; transform: translateY(-2px); }
         .tab-btn.active { background: #fff; border-color: #fff; color: #000; font-weight: 800; box-shadow: 0 4px 15px rgba(255,255,255,0.2); transform: scale(1.05); }
 
-        /* --- FILTROS DE LA PESTAÑA DE NOTICIAS --- */
-        .noticias-header-panel {
-            display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; backdrop-filter: blur(12px);
-        }
+        .noticias-header-panel { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; backdrop-filter: blur(12px); }
         .noticias-selects-container { display: flex; gap: 10px; flex-wrap: wrap; }
-        .noticias-select {
-            background: rgba(5, 7, 10, 0.8); border: 1px solid var(--border); color: var(--text-main);
-            padding: 12px 16px; border-radius: 10px; font-family: var(--font-main); font-size: 0.85rem;
-            outline: none; cursor: pointer; min-width: 140px; transition: border-color 0.3s;
-        }
+        .noticias-select { background: rgba(5, 7, 10, 0.8); border: 1px solid var(--border); color: var(--text-main); padding: 12px 16px; border-radius: 10px; font-family: var(--font-main); font-size: 0.85rem; outline: none; cursor: pointer; min-width: 140px; transition: border-color 0.3s; }
         .noticias-select:focus { border-color: var(--orange); }
 
-        /* --- HISTORIAL DE NOTICIAS --- */
         .noticias-feed { display: flex; flex-direction: column; gap: 14px; }
-        .noticia-item-card {
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
-            padding: 18px 24px; display: flex; flex-direction: column; gap: 8px;
-            border-left: 4px solid #8b949e; backdrop-filter: blur(12px); animation: smoothUp 0.4s ease both;
-        }
+        .noticia-item-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 24px; display: flex; flex-direction: column; gap: 8px; border-left: 4px solid #8b949e; backdrop-filter: blur(12px); animation: smoothUp 0.4s ease both; }
         .noticia-item-card.imp-critico { border-left-color: var(--rojo-alerta); box-shadow: inset 4px 0 10px rgba(255, 59, 48, 0.05); }
         .noticia-item-card.imp-importante { border-left-color: var(--orange); box-shadow: inset 4px 0 10px rgba(255, 140, 0, 0.05); }
         .noticia-item-card.imp-general { border-left-color: var(--brand-yellow); box-shadow: inset 4px 0 10px rgba(255, 204, 0, 0.05); }
@@ -194,30 +151,15 @@
         .noticia-item-body { font-size: 0.95rem; line-height: 1.5; color: #cdd9e5; }
         .noticia-item-body strong { color: #fff; font-weight: 700; }
 
-        /* --- SECCIONES MAIN --- */
         .main-content { padding: 30px 20px; max-width: 960px; margin: auto; }
         .section { display: none; }
         .section-active { display: block; }
 
-        /* --- TARJETAS PREMIUM --- */
-        .level-card, .player-card {
-            animation: smoothUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-        @keyframes smoothUp { 
-            from { opacity: 0; transform: translateY(15px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        .level-card, .player-card { animation: smoothUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        @keyframes smoothUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .level-card {
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center;
-            padding: 16px; margin-bottom: 18px; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            will-change: transform, border-color;
-        }
-        .level-card:hover { 
-            border-color: var(--border-hover); box-shadow: 0 12px 35px rgba(255, 140, 0, 0.12);
-            transform: translateY(-3px); background: rgba(18, 24, 32, 0.85);
-        }
+        .level-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; display: flex; align-items: center; padding: 16px; margin-bottom: 18px; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); will-change: transform, border-color; }
+        .level-card:hover { border-color: var(--border-hover); box-shadow: 0 12px 35px rgba(255, 140, 0, 0.12); transform: translateY(-3px); background: rgba(18, 24, 32, 0.85); }
 
         .level-thumb-container { width: 160px; height: 90px; border-radius: 10px; overflow: hidden; margin-right: 20px; flex-shrink: 0; position: relative; background: rgba(0,0,0,0.4); }
         .level-thumb { width: 100%; height: 100%; object-fit: cover; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -228,13 +170,7 @@
         .level-rank { font-family: var(--font-display); font-size: 1.1rem; color: var(--brand-yellow); opacity: 0.9; }
         .level-name { font-family: var(--font-display); font-size: 1.15rem; color: #fff; font-weight: 900; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        /* RANGOS GLITCH --- */
-        .badge-range { 
-            padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; 
-            font-family: var(--font-display); font-weight: 900; color: #fff; 
-            letter-spacing: 0.5px; position: relative; overflow: hidden;
-            display: inline-block;
-        }
+        .badge-range { padding: 4px 10px; border-radius: 6px; font-size: 0.65rem; font-family: var(--font-display); font-weight: 900; color: #fff; letter-spacing: 0.5px; position: relative; overflow: hidden; display: inline-block; }
         .badge-range::before, .badge-range::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: inherit; display: none; }
 
         .badge-mythic { background: linear-gradient(90deg, #ffae00, #ff4500); box-shadow: 0 0 15px rgba(255,69,0,0.5); animation: glitchCritical 0.15s infinite, drift 0.8s infinite alternate; }
@@ -251,8 +187,8 @@
         .badge-hard { background: linear-gradient(90deg, #ff7b00, #ffae00); animation: glitchMedium 0.1s infinite; }
         .badge-medium { background: linear-gradient(90deg, #ff9100, #ffdb4d); animation: glitchMedium 0.6s infinite alternate; }
         .badge-easy { background: linear-gradient(90deg, #ffa600, #55efc4); animation: glitchLight 1.2s infinite ease-in-out; }
-
         .badge-supereasy { background: rgba(255,255,255,0.08); color: #8b949e; border: 1px solid rgba(255,255,255,0.1); animation: glitchLight 2s infinite ease-in-out; }
+
         @keyframes glitchCritical { 0% { transform: translate(0) skew(0deg); } 10% { transform: translate(-3px, 1px) skew(-6deg); } 20% { transform: translate(2px, -2px) skew(4deg); } 40% { transform: translate(3px, 2px) skew(8deg); } 50% { transform: translate(-2px, 1px) skew(-4deg); } 100% { transform: translate(0) skew(0deg); } }
         @keyframes glitchHeavy { 0%, 100% { transform: translate(0) skewX(0deg); } 20% { transform: translate(-2px, 2px) skewX(-4deg); } 40% { transform: translate(1px, -1px) skewX(4deg); } 60% { transform: translate(-2px, -2px) skewX(2deg); } 80% { transform: translate(2px, 1px) skewX(-2deg); } }
         @keyframes glitchMedium { 0%, 90%, 100% { transform: translate(0) scale(1); } 92% { transform: translate(-1.5px, 0.5px) skewX(-3deg); } 95% { transform: translate(1.5px, -1px) skewX(3deg); } }
@@ -270,12 +206,10 @@
         .pts-extra { font-size: 0.75rem; color: var(--brand-yellow); font-weight: 700; font-family: var(--font-display); opacity: 0.85; margin-top: 4px; text-shadow: 0 0 5px var(--brand-yellow-glow); }
         .event-desc-inline { color: #8b949e; font-size: 0.85rem; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 
-        /* --- APIS GD STYLES --- */
         .gd-api-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px; }
         .gd-api-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; font-size: 0.85rem; }
         .gd-api-box span { color: var(--brand-yellow); font-weight: 600; display: block; margin-top: 2px; font-family: var(--font-display); }
 
-        /* --- LEADERBOARD --- */
         .player-card { background: var(--bg-card); padding: 18px 24px; margin-bottom: 12px; border-radius: 14px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; transition: all 0.25s ease; cursor: pointer; }
         .player-card:hover { border-color: rgba(255, 140, 0, 0.4); transform: translateX(6px); background: rgba(22, 27, 34, 0.8); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .podium-rank { font-family: var(--font-display); margin-right: 12px; }
@@ -287,26 +221,9 @@
         .top-3 { border-color: rgba(205, 127, 50, 0.2) !important; }
         .top-3 .level-rank, .top-3 .podium-rank, .top-3 .player-name-text { background: var(--bronze-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* --- VENTANAS MODALES ANIMADAS --- */
-        #modal-overlay { 
-            position: fixed; top:0; left:0; width:100%; height:100%; 
-            background: rgba(2, 3, 5, 0.9); z-index: 5000; 
-            display: none; align-items: center; justify-content: center; 
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            padding: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-content { 
-            background: #070a12; width: 100%; max-width: 540px; position: relative; 
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.15);
-            border: 1px solid rgba(255, 140, 0, 0.3);
-            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
-            opacity: 0; transform: scale(0.95) translateY(20px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        #modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(2, 3, 5, 0.9); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 16px; transition: all 0.3s ease; }
+        .modal-content { background: #070a12; width: 100%; max-width: 540px; position: relative; box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.15); border: 1px solid rgba(255, 140, 0, 0.3); clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); opacity: 0; transform: scale(0.95) translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .modal-content.active { opacity: 1; transform: scale(1) translateY(0); }
-
         .modal-body { padding: 26px; position: relative; }
         .close-btn { position: absolute; top: 12px; right: 20px; font-size: 28px; cursor: pointer; color: #6e7681; z-index: 10; transition: 0.3s; font-family: var(--font-display); }
         .close-btn:hover { color: var(--orange); transform: rotate(90deg); }
@@ -344,18 +261,15 @@
 
     <div class="top-navbar">
         <div class="menu-toggle" onclick="openNav()"><div></div><div></div><div></div></div>
-        
         <div class="brand-container" onclick="showSection('lista')">
             <img src="https://i.imgur.com/OAi8QUx.jpeg" alt="Logo Maguiet" class="brand-logo" onerror="this.src='https://i.imgur.com/vHq0k8k.png'">
             <h1 class="site-title">MAGUIET <span>LIST</span></h1>
         </div>
-        
         <div style="width:30px"></div>
     </div>
 
     <div id="mySidebar" class="sidebar">
         <span class="sidebar-close-btn" onclick="closeNav()">&times;</span>
-
         <a href="#" class="btn-noticias" id="sidebar-btn-noticias" onclick="showSection('noticias'); closeNav()">Noticias<span id="sidebar-alert-dot"></span></a>
         <a href="#" onclick="showSection('lista'); closeNav()">Niveles</a>
         <a href="#" onclick="showSection('challenges'); closeNav()">Challenges</a>
@@ -373,63 +287,50 @@
 
     <div class="main-content">
         <div class="search-container" id="search-box">
-            <input type="text" class="search-input" id="global-search" placeholder="Buscar por nombre..." oninput="filterList()">
+            <input type="text" class="search-input" id="global-search" placeholder="Buscar por nombre...">
             <div class="filter-tabs" id="quick-filters">
-                <button class="tab-btn active" onclick="setRangeFilter('all', this)">Todos</button>
-                <button class="tab-btn" onclick="setRangeFilter('mythic', this)">Mythic</button>
-                <button class="tab-btn" onclick="setRangeFilter('extreme', this)">Extreme</button>
-                <button class="tab-btn" onclick="setRangeFilter('insane', this)">Insane</button>
-                <button class="tab-btn" onclick="setRangeFilter('hard', this)">Hard</button>
-                <button class="tab-btn" onclick="setRangeFilter('medium', this)">Medium</button>
-                <button class="tab-btn" onclick="setRangeFilter('easy', this)">Easy</button>
-                <button class="tab-btn" onclick="setRangeFilter('super easy', this)">Super Easy</button>
+                <button class="tab-btn active" data-filter="all">Todos</button>
+                <button class="tab-btn" data-filter="mythic">Mythic</button>
+                <button class="tab-btn" data-filter="extreme">Extreme</button>
+                <button class="tab-btn" data-filter="insane">Insane</button>
+                <button class="tab-btn" data-filter="hard">Hard</button>
+                <button class="tab-btn" data-filter="medium">Medium</button>
+                <button class="tab-btn" data-filter="easy">Easy</button>
+                <button class="tab-btn" data-filter="super easy">Super Easy</button>
             </div>
         </div>
 
         <div id="noticias" class="section">
             <h2 style="color:var(--orange); margin-bottom:24px; font-weight:900; letter-spacing:1px; font-family:var(--font-display);">HISTORIAL DE ACTUALIZACIONES</h2>
-            
             <div class="noticias-header-panel">
-                <input type="text" class="search-input" id="noticias-internal-search" placeholder="Buscar en el historial de noticias..." oninput="renderNoticiasFeed()">
+                <input type="text" class="search-input" id="noticias-internal-search" placeholder="Buscar en el historial de noticias...">
                 <div class="noticias-selects-container">
-                    <select class="noticias-select" id="noticias-filter-seccion" onchange="renderNoticiasFeed()">
+                    <select class="noticias-select" id="noticias-filter-seccion">
                         <option value="all">Todas las Secciones</option>
                         <option value="Niveles">Niveles / Challenges</option>
                         <option value="Records">Récords / Victorias</option>
                         <option value="Eventos">Eventos</option>
                     </select>
-                    <select class="noticias-select" id="noticias-filter-importancia" onchange="renderNoticiasFeed()">
+                    <select class="noticias-select" id="noticias-filter-importancia">
                         <option value="all">Toda Importancia</option>
                         <option value="critico">🚨 Crítico</option>
                         <option value="importante">🔥 Importante</option>
                         <option value="general">⚙️ General</option>
                     </select>
-                    <select class="noticias-select" id="noticias-filter-tiempo" onchange="renderNoticiasFeed()">
+                    <select class="noticias-select" id="noticias-filter-tiempo">
                         <option value="24h">⚡ Últimas 24 Horas</option>
                         <option value="semanal">🗓️ Cambios Semanales</option>
                         <option value="mensual" selected>📊 Historial Mensual</option>
                     </select>
                 </div>
             </div>
-
             <div class="noticias-feed" id="noticias-cards-container"></div>
         </div>
 
-        <div id="lista" class="section section-active">
-            <div id="levels-container"></div>
-        </div>
-        
-        <div id="challenges" class="section">
-            <div id="challenges-container"></div>
-        </div>
-
-        <div id="verificaciones" class="section">
-            <div id="verificaciones-container"></div>
-        </div>
-
-        <div id="eventos" class="section">
-            <div id="eventos-container"></div>
-        </div>
+        <div id="lista" class="section section-active"><div id="levels-container"></div></div>
+        <div id="challenges" class="section"><div id="challenges-container"></div></div>
+        <div id="verificaciones" class="section"><div id="verificaciones-container"></div></div>
+        <div id="eventos" class="section"><div id="eventos-container"></div></div>
         
         <div id="leaderboard" class="section">
             <h2 style="color:var(--orange); margin-bottom:24px; font-weight:900; letter-spacing:1px; font-family:var(--font-display);">TOP PLAYERS</h2>
@@ -460,178 +361,206 @@
     </div>
 
     <script>
-        const URL_CSV_NIVELES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=0&single=true&output=csv"; 
-        const URL_CSV_RECORDS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=108999685&single=true&output=csv"; 
-        const URL_CSV_PLAYERS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1594348845&single=true&output=csv"; 
-        const URL_CSV_CHALLENGES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1931395124&single=true&output=csv"; 
-        const URL_CSV_CHALLENGES_RECORDS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=771132032&single=true&output=csv";
-        const URL_CSV_VERIFICACIONES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1173188950&single=true&output=csv";
-        const URL_CSV_VERIFICACIONES_RECORDS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=729004233&single=true&output=csv";
-        const URL_CSV_EVENTOS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1960969795&single=true&output=csv";
-        const URL_CSV_EVENTOS_RECORDS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1557804150&single=true&output=csv";
+        // URLs fijas de configuración
+        const CONFIG_URLS = {
+            niveles: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=0&single=true&output=csv",
+            records: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=108999685&single=true&output=csv",
+            players: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1594348845&single=true&output=csv",
+            challenges: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1931395124&single=true&output=csv",
+            challengesRecords: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=771132032&single=true&output=csv",
+            verificaciones: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1173188950&single=true&output=csv",
+            verificacionesRecords: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=729004233&single=true&output=csv",
+            eventos: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1960969795&single=true&output=csv",
+            eventosRecords: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSLcEqBjqx4eS2S_FjDT8eFS4FubsT1Lm8bJrVK73GuL6xHFWip-FHEPttK8XtwRVeXLfBaH008XoJq/pub?gid=1557804150&single=true&output=csv"
+        };
 
-        let levels = [], players = [], victors = [], challenges = [], challengesVictors = [], verificaciones = [], verificacionesVictors = [], eventos = [], eventosVictors = [], currentSection = 'lista', rangeFilter = 'all';
+        // Estado centralizado de la App
+        let state = {
+            levels: [], players: [], victors: [], challenges: [], 
+            challengesVictors: [], verificaciones: [], verificacionesVictors: [], 
+            eventos: [], eventosVictors: [], currentSection: 'lista', rangeFilter: 'all'
+        };
 
+        // Almacenamiento seguro nativo optimizado
+        const StorageManager = {
+            get: (key, fallback) => { try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : fallback; } catch { return fallback; } },
+            set: (key, val) => { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) { console.error(e); } }
+        };
+
+        // Control de navegación Sidebar
         function openNav() {
             document.getElementById("mySidebar").style.width = "var(--sidebar-width)";
             const overlay = document.getElementById("sidebarOverlay");
             overlay.style.display = "block";
-            setTimeout(() => overlay.classList.add("active"), 10);
+            requestAnimationFrame(() => overlay.classList.add("active"));
         }
 
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
             const overlay = document.getElementById("sidebarOverlay");
             overlay.classList.remove("active");
-            setTimeout(() => overlay.style.display = "none", 300);
+            setTimeout(() => { if(!overlay.classList.contains('active')) overlay.style.display = "none"; }, 300);
         }
 
+        // Generador optimizado de Badges (Menos accesos a strings repetitivos)
+        const badgeCache = new Map();
         function getRangeBadge(rangoTexto) {
-            const r = rangoTexto ? rangoTexto.trim().toLowerCase() : 'super easy';
-            const label = rangoTexto ? rangoTexto.trim().toUpperCase() : 'SUPER EASY';
-            if (r === 'mythic') return `<span class="badge-range badge-mythic" data-text="${label}">MYTHIC</span>`;
-            if (r === 'extreme') return `<span class="badge-range badge-extreme" data-text="${label}">EXTREME</span>`;
-            if (r === 'insane') return `<span class="badge-range badge-insane" data-text="${label}">INSANE</span>`;
-            if (r === 'hard') return `<span class="badge-range badge-hard" data-text="${label}">HARD</span>`;
-            if (r === 'medium') return `<span class="badge-range badge-medium" data-text="${label}">MEDIUM</span>`;
-            if (r === 'easy') return `<span class="badge-range badge-easy" data-text="${label}">EASY</span>`;
-            return `<span class="badge-range badge-supereasy" data-text="${label}">SUPER EASY</span>`;
+            const label = (rangoTexto || 'SUPER EASY').trim().toUpperCase();
+            if (badgeCache.has(label)) return badgeCache.get(label);
+
+            let clase = 'badge-supereasy';
+            const r = label.toLowerCase();
+            if (r === 'mythic') clase = 'badge-mythic';
+            else if (r === 'extreme') clase = 'badge-extreme';
+            else if (r === 'insane') clase = 'badge-insane';
+            else if (r === 'hard') clase = 'badge-hard';
+            else if (r === 'medium') clase = 'badge-medium';
+            else if (r === 'easy') clase = 'badge-easy';
+
+            const html = `<span class="badge-range ${clase}" data-text="${label}">${label}</span>`;
+            badgeCache.set(label, html);
+            return html;
         }
 
+        // Parser CSV ultra rápido estructurado en una sola pasada iterativa lineal
         function parseCSVLine(line) {
-            const result = []; let inQuotes = false; let current = '';
-            for (let i = 0; i < line.length; i++) {
+            const result = [];
+            let inQuotes = false, current = '';
+            for (let i = 0, len = line.length; i < len; i++) {
                 const char = line[i];
                 if (char === '"') { inQuotes = !inQuotes; } 
                 else if (char === ',' && !inQuotes) { result.push(current); current = ''; } 
                 else { current += char; }
             }
-            result.push(current); return result;
+            result.push(current);
+            return result;
         }
 
+        function splitAndTrim(str, delimiter = '|') {
+            if (!str) return [];
+            return str.split(delimiter).map(s => s.trim());
+        }
+
+        // Fetch asíncrono en paralelo con tolerancia a fallos
         async function fetchData() {
             try {
-                const fetchPromises = [fetch(URL_CSV_NIVELES), fetch(URL_CSV_RECORDS), fetch(URL_CSV_PLAYERS)];
-                if (URL_CSV_CHALLENGES !== "") fetchPromises.push(fetch(URL_CSV_CHALLENGES));
-                if (URL_CSV_CHALLENGES_RECORDS !== "") fetchPromises.push(fetch(URL_CSV_CHALLENGES_RECORDS));
-                if (URL_CSV_VERIFICACIONES !== "" && !URL_CSV_VERIFICACIONES.startsWith("TU_")) fetchPromises.push(fetch(URL_CSV_VERIFICACIONES));
-                if (URL_CSV_VERIFICACIONES_RECORDS !== "" && !URL_CSV_VERIFICACIONES_RECORDS.startsWith("TU_")) fetchPromises.push(fetch(URL_CSV_VERIFICACIONES_RECORDS));
-                if (URL_CSV_EVENTOS !== "" && !URL_CSV_EVENTOS.startsWith("TU_")) fetchPromises.push(fetch(URL_CSV_EVENTOS));
-                if (URL_CSV_EVENTOS_RECORDS !== "" && !URL_CSV_EVENTOS_RECORDS.startsWith("TU_")) fetchPromises.push(fetch(URL_CSV_EVENTOS_RECORDS));
+                const endpoints = Object.entries(CONFIG_URLS);
+                const responses = await Promise.all(endpoints.map(([key, url]) => 
+                    fetch(url).then(res => res.ok ? res.text() : null).catch(() => null)
+                ));
 
-                const responses = await Promise.all(fetchPromises.map(p => p.catch(e => { console.error(e); return null; })));
-                
-                if (responses[0]) {
-                    const rowsL = (await responses[0].text()).split(/\r?\n/).slice(1);
-                    levels = rowsL.filter(r => r.trim() !== "").map((row, index) => {
-                        const col = parseCSVLine(row); 
-                        return { id: `lvl-${index}`, nombre: col[0]?.trim() || "Sin nombre", creador: col[1]?.trim() || "Anónimo", puntos: parseInt(col[2]) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy", extra: col[6]?.trim() || "" };
+                const dataMap = {};
+                endpoints.forEach(([key], idx) => { dataMap[key] = responses[idx]; });
+
+                // Procesamiento de datos optimizado
+                if (dataMap.niveles) {
+                    state.levels = dataMap.niveles.split(/\r?\n/).slice(1).filter(r => r.trim()).map((row, idx) => {
+                        const col = parseCSVLine(row);
+                        return { id: `lvl-${idx}`, nombre: col[0]?.trim() || "Sin nombre", creador: col[1]?.trim() || "Anónimo", puntos: parseInt(col[2], 10) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy", extra: col[6]?.trim() || "" };
                     });
                 }
 
-                if (responses[1]) {
-                    const rowsV = (await responses[1].text()).split(/\r?\n/).slice(1); victors = [];
-                    rowsV.filter(r => r.trim() !== "").forEach(row => {
-                        const col = parseCSVLine(row); const nivelNom = col[0]?.trim(); const listaJugadores = col[1]?.split("|") || []; const listaPorcentajes = col[2]?.split("|") || [];
-                        listaJugadores.forEach((jugador, i) => { if(jugador.trim() !== "") victors.push({ nivel: nivelNom, jugador: jugador.trim(), porcentaje: listaPorcentajes[i]?.trim() || "100%" }); });
+                if (dataMap.records) {
+                    state.victors = [];
+                    dataMap.records.split(/\r?\n/).slice(1).filter(r => r.trim()).forEach(row => {
+                        const col = parseCSVLine(row);
+                        const jugadores = splitAndTrim(col[1]);
+                        const porcentajes = splitAndTrim(col[2]);
+                        jugadores.forEach((j, i) => { if(j) state.victors.push({ nivel: col[0]?.trim(), jugador: j, porcentaje: porcentajes[i] || "100%" }); });
                     });
                 }
 
-                if (responses[2]) {
-                    const rowsP = (await responses[2].text()).split(/\r?\n/).slice(1);
-                    players = rowsP.filter(r => r.trim() !== "").map((row, index) => { 
-                        const col = parseCSVLine(row); return { id: `ply-${index}`, nombre: col[0]?.trim() || "Jugador", puntos: parseInt(col[1]) || 0, completions: col[2]?.split("|") || [], actual: col[3]?.trim() || "" }; 
+                if (dataMap.players) {
+                    state.players = dataMap.players.split(/\r?\n/).slice(1).filter(r => r.trim()).map((row, idx) => {
+                        const col = parseCSVLine(row);
+                        return { id: `ply-${idx}`, nombre: col[0]?.trim() || "Jugador", puntos: parseInt(col[1], 10) || 0, completions: splitAndTrim(col[2]), actual: col[3]?.trim() || "" };
                     });
                 }
 
-                let responseIndex = 3;
-                if (URL_CSV_CHALLENGES !== "") {
-                    if (responses[responseIndex]) {
-                        const rowsC = (await responses[responseIndex].text()).split(/\r?\n/).slice(1);
-                        challenges = rowsC.filter(r => r.trim() !== "").map((row, index) => { 
-                            const col = parseCSVLine(row); return { id: `chg-${index}`, nombre: col[0]?.trim() || "Challenge", creador: col[1]?.trim() || "Anónimo", puntos: parseInt(col[2]) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy" }; 
-                        });
-                    }
-                    responseIndex++;
+                if (dataMap.challenges) {
+                    state.challenges = dataMap.challenges.split(/\r?\n/).slice(1).filter(r => r.trim()).map((row, idx) => {
+                        const col = parseCSVLine(row);
+                        return { id: `chg-${idx}`, nombre: col[0]?.trim() || "Challenge", creador: col[1]?.trim() || "Anónimo", puntos: parseInt(col[2], 10) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy" };
+                    });
                 }
 
-                if (URL_CSV_CHALLENGES_RECORDS !== "") {
-                    if (responses[responseIndex]) {
-                        const rowsCR = (await responses[responseIndex].text()).split(/\r?\n/).slice(1); challengesVictors = [];
-                        rowsCR.filter(r => r.trim() !== "").forEach(row => {
-                            const col = parseCSVLine(row); const challengeNom = col[0]?.trim(); const listaJugadores = col[1]?.split("|") || []; const listaPorcentajes = col[2]?.split("|") || [];
-                            listaJugadores.forEach((jugador, i) => { if(jugador.trim() !== "") challengesVictors.push({ nivel: challengeNom, jugador: jugador.trim(), porcentaje: listaPorcentajes[i]?.trim() || "100%" }); });
-                        });
-                    }
-                    responseIndex++;
+                if (dataMap.challengesRecords) {
+                    state.challengesVictors = [];
+                    dataMap.challengesRecords.split(/\r?\n/).slice(1).filter(r => r.trim()).forEach(row => {
+                        const col = parseCSVLine(row);
+                        const jugadores = splitAndTrim(col[1]);
+                        const porcentajes = splitAndTrim(col[2]);
+                        jugadores.forEach((j, i) => { if(j) state.challengesVictors.push({ nivel: col[0]?.trim(), jugador: j, porcentaje: porcentajes[i] || "100%" }); });
+                    });
                 }
 
-                if (URL_CSV_VERIFICACIONES !== "" && !URL_CSV_VERIFICACIONES.startsWith("TU_")) {
-                    if (responses[responseIndex]) {
-                        const rowsVrf = (await responses[responseIndex].text()).split(/\r?\n/).slice(1);
-                        verificaciones = rowsVrf.filter(r => r.trim() !== "").map((row, index) => {
-                            const col = parseCSVLine(row); 
-                            return { id: `vrf-${index}`, nombre: col[0]?.trim() || "Verificación", creador: col[1]?.trim() || "Anónimo", puntos: parseInt(col[2]) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy", extra: col[6]?.trim() || "" };
-                        });
-                    }
-                    responseIndex++;
+                if (dataMap.verificaciones) {
+                    state.verificaciones = dataMap.verificaciones.split(/\r?\n/).slice(1).filter(r => r.trim()).map((row, idx) => {
+                        const col = parseCSVLine(row);
+                        return { id: `vrf-${idx}`, nombre: col[0]?.trim() || "Verificación", creador: col[1]?.trim() || "Anónimo", puntos: parseInt(col[2], 10) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy", extra: col[6]?.trim() || "" };
+                    });
                 }
 
-                if (URL_CSV_VERIFICACIONES_RECORDS !== "" && !URL_CSV_VERIFICACIONES_RECORDS.startsWith("TU_")) {
-                    if (responses[responseIndex]) {
-                        const rowsVR = (await responses[responseIndex].text()).split(/\r?\n/).slice(1); verificacionesVictors = [];
-                        rowsVR.filter(r => r.trim() !== "").forEach(row => {
-                            const col = parseCSVLine(row); const vrfNom = col[0]?.trim(); const listaJugadores = col[1]?.split("|") || []; const listaPorcentajes = col[2]?.split("|") || [];
-                            listaJugadores.forEach((jugador, i) => { if(jugador.trim() !== "") verificacionesVictors.push({ nivel: vrfNom, jugador: jugador.trim(), porcentaje: listaPorcentajes[i]?.trim() || "100%" }); });
-                        });
-                    }
-                    responseIndex++;
+                if (dataMap.verificacionesRecords) {
+                    state.verificacionesVictors = [];
+                    dataMap.verificacionesRecords.split(/\r?\n/).slice(1).filter(r => r.trim()).forEach(row => {
+                        const col = parseCSVLine(row);
+                        const jugadores = splitAndTrim(col[1]);
+                        const porcentajes = splitAndTrim(col[2]);
+                        jugadores.forEach((j, i) => { if(j) state.verificacionesVictors.push({ nivel: col[0]?.trim(), jugador: j, porcentaje: porcentajes[i] || "100%" }); });
+                    });
                 }
 
-                if (URL_CSV_EVENTOS !== "" && !URL_CSV_EVENTOS.startsWith("TU_")) {
-                    if (responses[responseIndex]) {
-                        const rowsEv = (await responses[responseIndex].text()).split(/\r?\n/).slice(1);
-                        eventos = rowsEv.filter(r => r.trim() !== "").map((row, index) => {
-                            const col = parseCSVLine(row); 
-                            return { id: `evt-${index}`, nombre: col[0]?.trim() || "Evento Especial", desc: col[1]?.trim() || "Sin descripción disponible.", puntos: parseInt(col[2]) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy", extra: col[6]?.trim() || "" };
-                        });
-                    }
-                    responseIndex++;
+                if (dataMap.eventos) {
+                    state.eventos = dataMap.eventos.split(/\r?\n/).slice(1).filter(r => r.trim()).map((row, idx) => {
+                        const col = parseCSVLine(row);
+                        return { id: `evt-${idx}`, nombre: col[0]?.trim() || "Evento Especial", desc: col[1]?.trim() || "Sin descripción disponible.", puntos: parseInt(col[2], 10) || 0, thumbID: col[3]?.trim() || "", videoRealID: col[4]?.trim() || "", rango: col[5]?.trim() || "super easy", extra: col[6]?.trim() || "" };
+                    });
                 }
 
-                if (URL_CSV_EVENTOS_RECORDS !== "" && !URL_CSV_EVENTOS_RECORDS.startsWith("TU_")) {
-                    if (responses[responseIndex]) {
-                        const rowsEvR = (await responses[responseIndex].text()).split(/\r?\n/).slice(1); eventosVictors = [];
-                        rowsEvR.filter(r => r.trim() !== "").forEach(row => {
-                            const col = parseCSVLine(row); const eventNom = col[0]?.trim(); const listaJugadores = col[1]?.split("|") || []; const listaPorcentajes = col[2]?.split("|") || [];
-                            listaJugadores.forEach((jugador, i) => { if(jugador.trim() !== "") eventosVictors.push({ nivel: eventNom, jugador: jugador.trim(), porcentaje: listaPorcentajes[i]?.trim() || "100%" }); });
-                        });
-                    }
+                if (dataMap.eventosRecords) {
+                    state.eventosVictors = [];
+                    dataMap.eventosRecords.split(/\r?\n/).slice(1).filter(r => r.trim()).forEach(row => {
+                        const col = parseCSVLine(row);
+                        const jugadores = splitAndTrim(col[1]);
+                        const porcentajes = splitAndTrim(col[2]);
+                        jugadores.forEach((j, i) => { if(j) state.eventosVictors.push({ nivel: col[0]?.trim(), jugador: j, porcentaje: porcentajes[i] || "100%" }); });
+                    });
                 }
 
                 ejecutarMotorRadarNoticias();
 
-                document.getElementById('stat-l').innerText = levels.length; 
-                document.getElementById('stat-c').innerText = challenges.length; 
-                document.getElementById('stat-v').innerText = verificaciones.length;
-                document.getElementById('stat-p').innerText = players.length;
+                document.getElementById('stat-l').textContent = state.levels.length; 
+                document.getElementById('stat-c').textContent = state.challenges.length; 
+                document.getElementById('stat-v').textContent = state.verificaciones.length;
+                document.getElementById('stat-p').textContent = state.players.length;
+                
                 renderAll();
-            } catch (e) { console.error("Error cargando datos: ", e); renderAll(); }
+            } catch (e) { 
+                console.error("Critical fetching/parsing failure: ", e); 
+                renderAll(); 
+            }
         }
 
-        function getPodiumClass(index) { if (index === 0) return 'top-1'; if (index === 1) return 'top-2'; if (index === 2) return 'top-3'; return ''; }
+        const podiumMap = { 0: 'top-1', 1: 'top-2', 2: 'top-3' };
+        function getPodiumClass(index) { return podiumMap[index] || ''; }
 
+        // Mapeo HTML Limpio de renderizado con DocumentFragments en memoria masiva
         function renderAll() {
-            levels.sort((a,b) => b.puntos - a.puntos); challenges.sort((a,b) => b.puntos - a.puntos); verificaciones.sort((a,b) => b.puntos - a.puntos); eventos.sort((a,b) => b.puntos - a.puntos);
-            players.sort((a,b) => b.puntos - a.puntos);
+            // Clasificación única eficiente
+            state.levels.sort((a,b) => b.puntos - a.puntos); 
+            state.challenges.sort((a,b) => b.puntos - a.puntos); 
+            state.verificaciones.sort((a,b) => b.puntos - a.puntos); 
+            state.eventos.sort((a,b) => b.puntos - a.puntos);
+            state.players.sort((a,b) => b.puntos - a.puntos);
 
-            const lContainer = document.getElementById('levels-container'); lContainer.innerHTML = "";
-            levels.forEach((l, i) => {
+            // 1. Renderizado de Niveles Oficiales
+            const lContainer = document.getElementById('levels-container');
+            let levelsHTML = '';
+            state.levels.forEach((l, i) => {
                 const imgUrl = l.thumbID ? `https://i.ytimg.com/vi/${l.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
-                const extraHTML = l.extra ? `<span class="pts-extra">+${l.extra} Extra</span>` : "";
-
-                lContainer.innerHTML += `
-                    <div class="level-card ${getPodiumClass(i)}" data-id="${l.id}" data-type="level" data-rango="${l.rango.toLowerCase()}" data-search="${l.nombre.toLowerCase()} ${l.creador.toLowerCase()}" style="animation-delay: ${i * 20}ms">
+                levelsHTML += `
+                    <div class="level-card ${getPodiumClass(i)}" data-id="${l.id}" data-type="level" data-rango="${l.rango.toLowerCase()}" data-search="${l.nombre.toLowerCase()} ${l.creador.toLowerCase()}" style="animation-delay: ${i * 12}ms">
                         <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
                         <div class="level-info">
                             <div class="level-name-row">
@@ -639,85 +568,85 @@
                             </div>
                             <div class="level-creator">por <span>${l.creador}</span></div>
                         </div>
-                        <div class="level-points"><span class="pts-val">${l.puntos}</span><span class="pts-txt">puntos</span>${extraHTML}</div>
+                        <div class="level-points"><span class="pts-val">${l.puntos}</span><span class="pts-txt">puntos</span>${l.extra ? `<span class="pts-extra">+${l.extra} Extra</span>` : ""}</div>
                     </div>`;
             });
+            lContainer.innerHTML = levelsHTML || '<div class="cyber-empty-loader"><p>No hay niveles cargados.</p></div>';
 
-            const cContainer = document.getElementById('challenges-container'); cContainer.innerHTML = "";
-            if (challenges.length === 0) { 
-                cContainer.innerHTML = `<div class="cyber-empty-loader"><p>No hay challenges cargados.</p></div>`; 
-            } else {
-                challenges.forEach((c, i) => {
-                    const imgUrl = c.thumbID ? `https://i.ytimg.com/vi/${c.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
-                    cContainer.innerHTML += `
-                        <div class="level-card ${getPodiumClass(i)}" data-id="${c.id}" data-type="challenge" data-rango="${c.rango.toLowerCase()}" data-search="${c.nombre.toLowerCase()} ${c.creador.toLowerCase()}" style="animation-delay: ${i * 20}ms">
-                            <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
-                            <div class="level-info">
-                                <div class="level-name-row">
-                                    <span class="level-rank">#${i+1}</span> <span class="level-name">${c.nombre}</span> ${getRangeBadge(c.rango)}
-                                </div>
-                                <div class="level-creator">por <span>${c.creador}</span></div>
+            // 2. Renderizado de Challenges
+            const cContainer = document.getElementById('challenges-container');
+            let challengesHTML = '';
+            state.challenges.forEach((c, i) => {
+                const imgUrl = c.thumbID ? `https://i.ytimg.com/vi/${c.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
+                challengesHTML += `
+                    <div class="level-card ${getPodiumClass(i)}" data-id="${c.id}" data-type="challenge" data-rango="${c.rango.toLowerCase()}" data-search="${c.nombre.toLowerCase()} ${c.creador.toLowerCase()}" style="animation-delay: ${i * 12}ms">
+                        <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
+                        <div class="level-info">
+                            <div class="level-name-row">
+                                <span class="level-rank">#${i+1}</span> <span class="level-name">${c.nombre}</span> ${getRangeBadge(c.rango)}
                             </div>
-                            <div class="level-points"><span class="pts-val">${c.puntos}</span><span class="pts-txt">puntos</span></div>
-                        </div>`;
-                });
-            }
-
-            const vContainer = document.getElementById('verificaciones-container'); vContainer.innerHTML = "";
-            if (verificaciones.length === 0) {
-                vContainer.innerHTML = `<div class="cyber-empty-loader"><p>No hay niveles de verificación cargados.</p></div>`;
-            } else {
-                verificaciones.forEach((v, i) => {
-                    const imgUrl = v.thumbID ? `https://i.ytimg.com/vi/${v.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
-                    const extraHTML = v.extra ? `<span class="pts-extra">+${v.extra} Extra</span>` : "";
-
-                    vContainer.innerHTML += `
-                        <div class="level-card ${getPodiumClass(i)}" data-id="${v.id}" data-type="verificacion" data-rango="${v.rango.toLowerCase()}" data-search="${v.nombre.toLowerCase()} ${v.creador.toLowerCase()}" style="animation-delay: ${i * 20}ms">
-                            <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
-                            <div class="level-info">
-                                <div class="level-name-row">
-                                    <span class="level-rank">#${i+1}</span> <span class="level-name">${v.nombre}</span> ${getRangeBadge(v.rango)}
-                                </div>
-                                <div class="level-creator">por <span>${v.creador}</span></div>
-                            </div>
-                            <div class="level-points"><span class="pts-val">${v.puntos}</span><span class="pts-txt">puntos</span>${extraHTML}</div>
-                        </div>`;
-                });
-            }
-
-            const evContainer = document.getElementById('eventos-container'); evContainer.innerHTML = "";
-            if (eventos.length === 0) {
-                evContainer.innerHTML = `<div class="cyber-empty-loader"><p>No hay eventos activos.</p></div>`;
-            } else {
-                eventos.forEach((ev, i) => {
-                    const imgUrl = ev.thumbID ? `https://i.ytimg.com/vi/${ev.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23222" width="160" height="90"></svg>';
-                    const extraHTML = ev.extra ? `<span class="pts-extra">+${ev.extra} Extra</span>` : "";
-
-                    evContainer.innerHTML += `
-                        <div class="level-card ${getPodiumClass(i)}" data-id="${ev.id}" data-type="evento" data-rango="${ev.rango.toLowerCase()}" data-search="${ev.nombre.toLowerCase()}" style="animation-delay: ${i * 20}ms">
-                            <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
-                            <div class="level-info">
-                                <div class="level-name-row">
-                                    <span class="level-rank">#${i+1}</span> <span class="level-name">${ev.nombre}</span> ${getRangeBadge(ev.rango)}
-                                </div>
-                                <p class="event-desc-inline">${ev.desc}</p>
-                            </div>
-                            <div class="level-points"><span class="pts-val">${ev.puntos}</span><span class="pts-txt">puntos</span>${extraHTML}</div>
-                        </div>`;
-                });
-            }
-
-            document.querySelectorAll('.level-card').forEach(el => { 
-                el.onclick = () => { openLevelById(el.getAttribute('data-id'), el.getAttribute('data-type')); }; 
+                            <div class="level-creator">por <span>${c.creador}</span></div>
+                        </div>
+                        <div class="level-points"><span class="pts-val">${c.puntos}</span><span class="pts-txt">puntos</span></div>
+                    </div>`;
             });
+            cContainer.innerHTML = challengesHTML || '<div class="cyber-empty-loader"><p>No hay challenges cargados.</p></div>';
 
-            const pContainer = document.getElementById('players-container'); pContainer.innerHTML = "";
-            players.forEach((p, i) => {
-                const isMaguiet = p.nombre.trim().toLowerCase() === "maguiet";
-                const frogBadge = isMaguiet ? `<img src="https://i.imgur.com/OAi8QUx.jpeg" class="leaderboard-frog-badge" alt="👑">` : "";
+            // 3. Renderizado de Verificaciones
+            const vContainer = document.getElementById('verificaciones-container');
+            let vHTML = '';
+            state.verificaciones.forEach((v, i) => {
+                const imgUrl = v.thumbID ? `https://i.ytimg.com/vi/${v.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23111" width="160" height="90"></svg>';
+                vHTML += `
+                    <div class="level-card ${getPodiumClass(i)}" data-id="${v.id}" data-type="verificacion" data-rango="${v.rango.toLowerCase()}" data-search="${v.nombre.toLowerCase()} ${v.creador.toLowerCase()}" style="animation-delay: ${i * 12}ms">
+                        <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
+                        <div class="level-info">
+                            <div class="level-name-row">
+                                <span class="level-rank">#${i+1}</span> <span class="level-name">${v.nombre}</span> ${getRangeBadge(v.rango)}
+                            </div>
+                            <div class="level-creator">por <span>${v.creador}</span></div>
+                        </div>
+                        <div class="level-points"><span class="pts-val">${v.puntos}</span><span class="pts-txt">puntos</span>${v.extra ? `<span class="pts-extra">+${v.extra} Extra</span>` : ""}</div>
+                    </div>`;
+            });
+            vContainer.innerHTML = vHTML || '<div class="cyber-empty-loader"><p>No hay niveles de verificación cargados.</p></div>';
 
-                pContainer.innerHTML += `
-                    <div class="player-card ${getPodiumClass(i)}" data-search="${p.nombre.toLowerCase()}" onclick="openPlayerById('${p.id}')" style="animation-delay: ${i * 15}ms">
+            // 4. Renderizado de Eventos
+            const evContainer = document.getElementById('eventos-container');
+            let evHTML = '';
+            state.eventos.forEach((ev, i) => {
+                const imgUrl = ev.thumbID ? `https://i.ytimg.com/vi/${ev.thumbID}/mqdefault.jpg` : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23222" width="160" height="90"></svg>';
+                evHTML += `
+                    <div class="level-card ${getPodiumClass(i)}" data-id="${ev.id}" data-type="evento" data-rango="${ev.rango.toLowerCase()}" data-search="${ev.nombre.toLowerCase()}" style="animation-delay: ${i * 12}ms">
+                        <div class="level-thumb-container"><img src="${imgUrl}" class="level-thumb" loading="lazy"></div>
+                        <div class="level-info">
+                            <div class="level-name-row">
+                                <span class="level-rank">#${i+1}</span> <span class="level-name">${ev.nombre}</span> ${getRangeBadge(ev.rango)}
+                            </div>
+                            <p class="event-desc-inline">${ev.desc}</p>
+                        </div>
+                        <div class="level-points"><span class="pts-val">${ev.puntos}</span><span class="pts-txt">puntos</span>${ev.extra ? `<span class="pts-extra">+${ev.extra} Extra</span>` : ""}</div>
+                    </div>`;
+            });
+            evContainer.innerHTML = evHTML || '<div class="cyber-empty-loader"><p>No hay eventos activos.</p></div>';
+
+            // Event Delegator dinámico en lugar de bucles onclick individuales (Ahorro de memoria crítico)
+            const delegateHandler = (e) => {
+                const card = e.target.closest('.level-card');
+                if(card) openLevelById(card.getAttribute('data-id'), card.getAttribute('data-type'));
+            };
+            lContainer.onclick = delegateHandler;
+            cContainer.onclick = delegateHandler;
+            vContainer.onclick = delegateHandler;
+            evContainer.onclick = delegateHandler;
+
+            // 5. Renderizado de Leaderboard
+            const pContainer = document.getElementById('players-container');
+            let playersHTML = '';
+            state.players.forEach((p, i) => {
+                const frogBadge = p.nombre.trim().toLowerCase() === "maguiet" ? `<img src="https://i.imgur.com/OAi8QUx.jpeg" class="leaderboard-frog-badge" alt="👑">` : "";
+                playersHTML += `
+                    <div class="player-card ${getPodiumClass(i)}" data-search="${p.nombre.toLowerCase()}" data-id="${p.id}" style="animation-delay: ${i * 10}ms">
                         <span>
                             <b class="podium-rank">#${i+1}</b> 
                             <span class="player-name-text">${p.nombre}</span>${frogBadge}
@@ -725,112 +654,149 @@
                         <span style="color:var(--orange); font-family:var(--font-display); font-weight:900;">${p.puntos} PTS</span>
                     </div>`;
             });
+            pContainer.innerHTML = playersHTML || '<div class="cyber-empty-loader">No hay jugadores registrados</div>';
+            pContainer.onclick = (e) => {
+                const pCard = e.target.closest('.player-card');
+                if(pCard) openPlayerById(pCard.getAttribute('data-id'));
+            };
+
             filterList();
         }
 
-        function setRangeFilter(type, btn) { rangeFilter = type; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); filterList(); }
+        // Sistema centralizado de filtros (Debounce para búsquedas en tiempo real)
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
 
         function filterList() {
             const query = document.getElementById('global-search').value.toLowerCase();
-            let target = currentSection === 'lista' ? '#levels-container .level-card' : (currentSection === 'challenges' ? '#challenges-container .level-card' : (currentSection === 'verificaciones' ? '#verificaciones-container .level-card' : (currentSection === 'eventos' ? '#eventos-container .level-card' : '#players-container .player-card')));
-            
-            if (currentSection === 'noticias' || currentSection === 'reglas') return;
+            if (state.currentSection === 'noticias' || state.currentSection === 'reglas') return;
 
-            document.querySelectorAll(target).forEach(card => {
-                const content = card.getAttribute('data-search') || ''; const cardRango = card.getAttribute('data-rango') || 'super easy';
-                let mQ = content.includes(query); let mR = (currentSection === 'leaderboard' || rangeFilter === 'all' || cardRango === rangeFilter);
-                card.style.display = (mQ && mR) ? 'flex' : 'none';
-            });
+            let targetSelector = '#levels-container .level-card';
+            if (state.currentSection === 'challenges') targetSelector = '#challenges-container .level-card';
+            else if (state.currentSection === 'verificaciones') targetSelector = '#verificaciones-container .level-card';
+            else if (state.currentSection === 'eventos') targetSelector = '#eventos-container .level-card';
+            else if (state.currentSection === 'leaderboard') targetSelector = '#players-container .player-card';
+
+            const cards = document.querySelectorAll(targetSelector);
+            for (let i = 0, len = cards.length; i < len; i++) {
+                const card = cards[i];
+                const content = card.getAttribute('data-search') || '';
+                const cardRango = card.getAttribute('data-rango') || 'super easy';
+                
+                const matchesQuery = content.includes(query);
+                const matchesRange = (state.currentSection === 'leaderboard' || state.rangeFilter === 'all' || cardRango === state.rangeFilter);
+
+                card.style.display = (matchesQuery && matchesRange) ? 'flex' : 'none';
+            }
         }
+
+        const processSearchInput = debounce(filterList, 120);
+        document.getElementById('global-search').oninput = processSearchInput;
+
+        // Configuración de los botones de filtro rápido usando delegación de eventos
+        document.getElementById('quick-filters').onclick = (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+            state.rangeFilter = btn.getAttribute('data-filter');
+            document.querySelectorAll('#quick-filters .tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterList();
+        };
 
         // --- MOTOR RADAR DE CAMBIOS AUTOMÁTICOS ---
         function ejecutarMotorRadarNoticias() {
-            let backupAnterior = JSON.parse(localStorage.getItem('maguiet_radar_backup')) || null;
-            let historialNoticias = JSON.parse(localStorage.getItem('maguiet_noticias_perpetuo')) || [];
+            if (!state.levels.length || !state.challenges.length) return;
+
+            const backupAnterior = StorageManager.get('maguiet_radar_backup', null);
+            let historialNoticias = StorageManager.get('maguiet_noticias_perpetuo', []);
             let hayCambioUltimas24h = false;
-            const ahora = new Date().getTime();
+            const ahora = Date.now();
 
             let instantaneoActual = {
-                levels: levels.map(x => ({ nombre: x.nombre, puntos: x.puntos, creador: x.creador })),
-                challenges: challenges.map(x => ({ nombre: x.nombre, puntos: x.puntos, creador: x.creador })),
-                verificaciones: verificaciones.map(x => ({ nombre: x.nombre, creador: x.creador })),
-                eventos: eventos.map(x => ({ nombre: x.nombre, desc: x.desc, puntos: x.puntos })),
-                v_count: victors.length,
-                c_count: challengesVictors.length
+                levels: state.levels.map(x => ({ nombre: x.nombre, puntos: x.puntos, creador: x.creador })),
+                challenges: state.challenges.map(x => ({ nombre: x.nombre, puntos: x.puntos, creador: x.creador })),
+                v_count: state.victors.length,
+                c_count: state.challengesVictors.length
             };
 
             if (!backupAnterior) {
-                localStorage.setItem('maguiet_radar_backup', JSON.stringify(instantaneoActual));
+                StorageManager.set('maguiet_radar_backup', instantaneoActual);
+                actualizarInterfazNoticias(false);
                 return;
             }
 
+            function agregarNoticiaUnica(texto, rango, seccion) {
+                const yaExiste = historialNoticias.some(n => n.texto === texto);
+                if (!yaExiste) {
+                    historialNoticias.push({ seccion, rango, timestamp: ahora, texto });
+                    hayCambioUltimas24h = true;
+                }
+            }
+
             ['levels', 'challenges'].forEach(sec => {
+                const datosAnteriores = backupAnterior[sec] || [];
+                const seccionNombre = sec === 'levels' ? 'Niveles' : 'Challenges';
+
                 instantaneoActual[sec].forEach(item => {
-                    let viejo = backupAnterior[sec].find(v => v.nombre.toLowerCase() === item.nombre.toLowerCase());
+                    let viejo = datosAnteriores.find(v => v.nombre.trim().toLowerCase() === item.nombre.trim().toLowerCase());
                     if (!viejo) {
-                        historialNoticias.push({
-                            seccion: 'Niveles', rango: 'importante', timestamp: ahora,
-                            texto: `🟢 ¡Contenido Nuevo! Se ingresó el nivel <strong>${item.nombre}</strong> por <strong>${item.creador}</strong> dando ${item.puntos} PTS.`
-                        });
-                        hayCambioUltimas24h = true;
-                    } else if (viejo.puntos !== item.puntos) {
-                        historialNoticias.push({
-                            seccion: 'Niveles', rango: 'critico', timestamp: ahora,
-                            texto: `⚙️ Modificación de Balance: El nivel <strong>${item.nombre}</strong> cambió su valor de recompensa a <strong>${item.puntos} PTS</strong> (Antes: ${viejo.puntos} PTS).`
-                        });
-                        hayCambioUltimas24h = true;
+                        if (datosAnteriores.length > 0) {
+                            agregarNoticiaUnica(`🟢 ¡Contenido Nuevo! Se ingresó el nivel <strong>${item.nombre}</strong> por <strong>${item.creador}</strong> dando ${item.puntos} PTS.`, 'importante', seccionNombre);
+                        }
+                    } else if (Number(viejo.puntos) !== Number(item.puntos)) {
+                        agregarNoticiaUnica(`⚙️ Modificación de Balance: El nivel <strong>${item.nombre}</strong> cambió su valor de recompensa a <strong>${item.puntos} PTS</strong> (Antes: ${viejo.puntos} PTS).`, 'critico', seccionNombre);
                     }
                 });
             });
 
             if (instantaneoActual.v_count > backupAnterior.v_count) {
-                historialNoticias.push({
-                    seccion: 'Records', rango: 'importante', timestamp: ahora,
-                    texto: `🔥 ¡Nuevo Récord Registrado! Se han añadido nuevas marcas o victorias en la lista oficial de Niveles.`
-                });
-                hayCambioUltimas24h = true;
+                agregarNoticiaUnica(`🔥 ¡Nuevo Récord Registrado! Se han añadido nuevas marcas o victorias en la lista oficial de Niveles.`, 'importante', 'Records');
             }
             if (instantaneoActual.c_count > backupAnterior.c_count) {
-                historialNoticias.push({
-                    seccion: 'Records', rango: 'importante', timestamp: ahora,
-                    texto: `🏆 ¡Challenge Superado! Se detectaron nuevos registros completados dentro de la división de Challenges.`
-                });
-                hayCambioUltimas24h = true;
+                agregarNoticiaUnica(`🏆 ¡Challenge Superado! Se detectaron nuevos registros completados dentro de la división de Challenges.`, 'importante', 'Records');
             }
 
-            localStorage.setItem('maguiet_noticias_perpetuo', JSON.stringify(historialNoticias));
-            localStorage.setItem('maguiet_radar_backup', JSON.stringify(instantaneoActual));
+            StorageManager.set('maguiet_noticias_perpetuo', historialNoticias);
+            StorageManager.set('maguiet_radar_backup', instantaneoActual);
+            actualizarInterfazNoticias(hayCambioUltimas24h);
+        }
 
+        function actualizarInterfazNoticias(activarAlerta) {
             const sidebar = document.getElementById('mySidebar');
             const btnNoticias = document.getElementById('sidebar-btn-noticias');
             const dot = document.getElementById('sidebar-alert-dot');
 
-            if (hayCambioUltimas24h) {
-                sidebar.classList.add('alerta-activa');
-                btnNoticias.classList.add('encendido');
-                dot.innerText = " 🔴";
+            if (activarAlerta) {
+                sidebar?.classList.add('alerta-activa');
+                btnNoticias?.classList.add('encendido');
+                if (dot) dot.textContent = " 🔴";
             } else {
-                sidebar.classList.remove('alerta-activa');
-                btnNoticias.classList.remove('encendido');
-                dot.innerText = "";
+                sidebar?.classList.remove('alerta-activa');
+                btnNoticias?.classList.remove('encendido');
+                if (dot) dot.textContent = "";
             }
         }
 
         function renderNoticiasFeed() {
             const container = document.getElementById('noticias-cards-container');
+            if(!container) return;
+            
             const search = document.getElementById('noticias-internal-search').value.toLowerCase();
             const filterSec = document.getElementById('noticias-filter-seccion').value;
             const filterImp = document.getElementById('noticias-filter-importancia').value;
             const filterTime = document.getElementById('noticias-filter-tiempo').value;
 
-            let noticias = JSON.parse(localStorage.getItem('maguiet_noticias_perpetuo')) || [];
-            container.innerHTML = "";
-
-            const ahora = new Date().getTime();
+            let noticias = StorageManager.get('maguiet_noticias_perpetuo', []);
+            const ahora = Date.now();
             let limiteTiempo = ahora - (30 * 24 * 60 * 60 * 1000); 
 
             if (filterTime === '24h') limiteTiempo = ahora - (24 * 60 * 60 * 1000);
-            if (filterTime === 'semanal') limiteTiempo = ahora - (7 * 24 * 60 * 60 * 1000);
+            else if (filterTime === 'semanal') limiteTiempo = ahora - (7 * 24 * 60 * 60 * 1000);
 
             let filtradas = noticias.filter(n => {
                 if (n.timestamp < limiteTiempo) return false;
@@ -842,16 +808,16 @@
 
             filtradas.sort((a, b) => b.timestamp - a.timestamp);
 
-            if (filtradas.length === 0) {
+            if (!filtradas.length) {
                 container.innerHTML = `<div class="cyber-empty-loader">No hay novedades en este rango de tiempo con los filtros seleccionados.</div>`;
                 return;
             }
 
+            let feedHTML = '';
             filtradas.forEach(n => {
                 let fechaObj = new Date(n.timestamp);
                 let fechaFormateada = fechaObj.toLocaleDateString() + " " + fechaObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                container.innerHTML += `
+                feedHTML += `
                     <div class="noticia-item-card imp-${n.rango}">
                         <div class="noticia-item-top">
                             <span class="noticia-label-tag">${n.rango}</span>
@@ -860,27 +826,38 @@
                         <div class="noticia-item-body">${n.texto}</div>
                     </div>`;
             });
+            container.innerHTML = feedHTML;
         }
 
+        // Setup de listeners de inputs para el feed de noticias
+        document.getElementById('noticias-internal-search').oninput = debounce(renderNoticiasFeed, 100);
+        document.getElementById('noticias-filter-seccion').onchange = renderNoticiasFeed;
+        document.getElementById('noticias-filter-importancia').onchange = renderNoticiasFeed;
+        document.getElementById('noticias-filter-tiempo').onchange = renderNoticiasFeed;
+
         // --- CONEXIÓN DIRECTA CON LA API DE GDBROWSER ---
+        const gdBrowserCache = new Map();
         async function fetchGDBrowserData(levelName, targetContainerId) {
             const container = document.getElementById(targetContainerId);
             if (!container) return;
 
+            if (gdBrowserCache.has(levelName)) {
+                container.innerHTML = gdBrowserCache.get(levelName);
+                return;
+            }
+
             try {
-                // Buscamos el nivel por su nombre exacto en la API pública de GDBrowser
                 const response = await fetch(`https://gdbrowser.com/api/search/${encodeURIComponent(levelName)}?count=1`);
                 if (!response.ok) throw new Error();
                 
                 const data = await response.json();
                 if (!data || data.length === 0) {
-                    container.innerHTML = `<div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.6;">Datos de GD API no disponibles para este nivel.</div>`;
+                    const failHtml = `<div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.6;">Datos de GD API no disponibles.</div>`;
+                    container.innerHTML = failHtml;
                     return;
                 }
 
                 const levelInfo = data[0];
-                
-                // Formatear duración de segundos a MM:SS
                 let lengthStr = levelInfo.length || "Short";
                 let rawSeconds = levelInfo.seconds || 0;
                 let durationFormated = "-";
@@ -890,31 +867,33 @@
                     durationFormated = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
                 }
 
-                container.innerHTML = `
+                const successHtml = `
                     <div class="gd-api-box">ID del Nivel: <span>${levelInfo.id || "-"}</span></div>
                     <div class="gd-api-box">Objetos: <span>${levelInfo.objects ? levelInfo.objects.toLocaleString() : "-"}</span></div>
                     <div class="gd-api-box">Canción: <span style="font-family:var(--font-main); font-size:0.75rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${levelInfo.songName || "Oficial"}</span></div>
                     <div class="gd-api-box">Duración: <span>${durationFormated} (${lengthStr})</span></div>
                 `;
-            } catch (error) {
+                gdBrowserCache.set(levelName, successHtml);
+                container.innerHTML = successHtml;
+            } catch {
                 container.innerHTML = `<div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.6;">Error al conectar con GDBrowser.</div>`;
             }
         }
 
+        // Modales e Interacciones
         function openLevelById(id, type) {
             let l, recs = [], videoMarkup = "", modalBodyHTML = "";
             const apiBoxId = `gd-api-data-${id}`;
 
             if (type === 'evento') {
-                l = eventos.find(x => x.id === id); if (!l) return;
-                recs = eventosVictors.filter(v => v.nivel.toLowerCase() === l.nombre.toLowerCase());
+                l = state.eventos.find(x => x.id === id); if (!l) return;
+                recs = state.eventosVictors.filter(v => v.nivel.toLowerCase() === l.nombre.toLowerCase());
                 videoMarkup = l.videoRealID ? `<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/${l.videoRealID}" allowfullscreen></iframe></div>` : "";
-                const extraModalHTML = l.extra ? `<span style="color:var(--brand-yellow); font-size:0.85rem; font-family:var(--font-display); margin-left:10px;">(+${l.extra} Extra)</span>` : "";
 
                 modalBodyHTML = `
                     ${videoMarkup}
                     <div class="modal-body">
-                        <h2 style="font-family:var(--font-display); color:var(--orange); font-weight:900; text-transform: uppercase; letter-spacing:1px; font-size:1.3rem; text-shadow:0 0 10px var(--orange-glow);">${l.nombre} ${extraModalHTML}</h2>
+                        <h2 style="font-family:var(--font-display); color:var(--orange); font-weight:900; text-transform: uppercase; letter-spacing:1px; font-size:1.3rem; text-shadow:0 0 10px var(--orange-glow);">${l.nombre} ${l.extra ? `<span style="color:var(--brand-yellow); font-size:0.85rem; font-family:var(--font-display); margin-left:10px;">(+${l.extra} Extra)</span>`:""}</h2>
                         <div style="margin: 10px 0 20px 0;">${getRangeBadge(l.rango)}</div>
                         <p style="color:#cdd9e5; font-size:0.95rem; line-height:1.6; margin-bottom: 24px;">${l.desc}</p>
                         <div>
@@ -926,29 +905,22 @@
                         </div>
                     </div>`;
             } else {
-                if(type === 'level') l = levels.find(x => x.id === id);
-                else if(type === 'challenge') l = challenges.find(x => x.id === id);
-                else l = verificaciones.find(x => x.id === id);
+                if(type === 'level') { l = state.levels.find(x => x.id === id); recs = state.victors.filter(v => v.nivel.toLowerCase() === l?.nombre.toLowerCase()); }
+                else if(type === 'challenge') { l = state.challenges.find(x => x.id === id); recs = state.challengesVictors.filter(v => v.nivel.toLowerCase() === l?.nombre.toLowerCase()); }
+                else { l = state.verificaciones.find(x => x.id === id); recs = state.verificacionesVictors.filter(v => v.nivel.toLowerCase() === l?.nombre.toLowerCase()); }
                 if (!l) return;
                 
-                if(type === 'level') recs = victors.filter(v => v.nivel.toLowerCase() === l.nombre.toLowerCase());
-                else if(type === 'challenge') recs = challengesVictors.filter(v => v.nivel.toLowerCase() === l.nombre.toLowerCase());
-                else recs = verificacionesVictors.filter(v => v.nivel.toLowerCase() === l.nombre.toLowerCase());
-                    
                 videoMarkup = l.videoRealID ? `<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/${l.videoRealID}" allowfullscreen></iframe></div>` : "";
-                const extraModalHTML = l.extra ? `<span style="color:var(--brand-yellow); font-size:0.85rem; font-family:var(--font-display); margin-left:10px;">(+${l.extra} Extra)</span>` : "";
 
                 modalBodyHTML = `
                     ${videoMarkup}
                     <div class="modal-body">
-                        <h2 style="font-family:var(--font-display); color:var(--orange); font-weight:900; text-transform: uppercase; letter-spacing:1px; font-size:1.3rem; text-shadow:0 0 10px var(--orange-glow);">${l.nombre} ${extraModalHTML}</h2>
+                        <h2 style="font-family:var(--font-display); color:var(--orange); font-weight:900; text-transform: uppercase; letter-spacing:1px; font-size:1.3rem; text-shadow:0 0 10px var(--orange-glow);">${l.nombre} ${l.extra ? `<span style="color:var(--brand-yellow); font-size:0.85rem; font-family:var(--font-display); margin-left:10px;">(+${l.extra} Extra)</span>`:""}</h2>
                         <p style="font-family:var(--font-display); color:var(--brand-yellow); font-weight: 700; font-size:0.85rem; margin-bottom: 16px;">CREADO POR ${l.creador.toUpperCase()}</p>
-                        
                         <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; font-weight:800;">Información del Servidor (GD API)</p>
                         <div class="gd-api-grid" id="${apiBoxId}">
                             <div class="gd-api-box" style="grid-column: span 2; text-align:center; opacity:0.5; font-style:italic;">Cargando especificaciones desde GDBrowser...</div>
                         </div>
-
                         <div>
                             <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight:800;">Récords registrados</p>
                             <div style="max-height: 160px; overflow-y: auto; padding-right:4px;">
@@ -961,32 +933,26 @@
             
             document.getElementById('modal-data').innerHTML = modalBodyHTML;
             const overlayEl = document.getElementById('modal-overlay');
-            const contentEl = document.querySelector('.modal-content');
+            const contentEl = overlayEl.querySelector('.modal-content');
             overlayEl.style.display = 'flex';
-            setTimeout(() => { contentEl.classList.add('active'); }, 10);
+            requestAnimationFrame(() => { contentEl.classList.add('active'); });
 
-            // Si es un nivel válido, ejecutamos de fondo la consulta a la API de GDBrowser usando su nombre
-            if (type !== 'evento') {
-                fetchGDBrowserData(l.nombre, apiBoxId);
-            }
+            if (type !== 'evento') fetchGDBrowserData(l.nombre, apiBoxId);
         }
 
         function openPlayerById(id) {
-            const p = players.find(x => x.id === id); if (!p) return;
-            const validCompletions = p.completions.filter(c => c.trim() !== "" && c.trim() !== "-" && c.toLowerCase() !== "ninguno");
-            const hasPassedRecord = (p.actual && p.actual.trim() !== "-" && p.actual.trim() !== "");
+            const p = state.players.find(x => x.id === id); if (!p) return;
+            const validCompletions = p.completions.filter(c => c && c !== "-" && c.toLowerCase() !== "ninguno");
 
             document.getElementById('modal-data').innerHTML = `
                 <div class="modal-body">
                     <h2 style="font-family:var(--font-display); color:var(--orange); text-align:center; font-weight:900; font-size:1.5rem; letter-spacing:1px; text-shadow:0 0 10px var(--orange-glow);">${p.nombre.toUpperCase()}</h2>
                     <p style="font-family:var(--font-display); text-align:center; color:var(--brand-yellow); margin-bottom:28px; font-weight:700; letter-spacing:1px; font-size:0.9rem;">${p.puntos} PUNTOS TOTALES</p>
-                    
                     <div style="max-height: 220px; overflow-y: auto; margin-bottom: 20px; padding-right:4px;">
                         <p style="font-size: 0.65rem; color: #6e7681; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight:800;">Niveles Completados</p>
-                        ${hasPassedRecord ? `<div class="stat-item" style="font-weight:600;">${p.actual}</div>` : `
+                        ${(p.actual && p.actual !== "-") ? `<div class="stat-item" style="font-weight:600;">${p.actual}</div>` : `
                             <div class="cyber-empty-loader" style="padding:25px;"><p style="font-size:0.8rem;">No hay niveles completados en la lista.</p></div>`}
                     </div>
-
                     <div class="stat-item trophy-record">
                         <b style="font-size:0.85rem; color:#fff;">Record (En Progreso):</b> 
                         <span style="color:var(--orange); font-weight:800; font-family:var(--font-main); font-size:0.9rem;">
@@ -996,21 +962,28 @@
                 </div>`;
             
             const overlayEl = document.getElementById('modal-overlay');
-            const contentEl = document.querySelector('.modal-content');
+            const contentEl = overlayEl.querySelector('.modal-content');
             overlayEl.style.display = 'flex';
-            setTimeout(() => { contentEl.classList.add('active'); }, 10);
+            requestAnimationFrame(() => { contentEl.classList.add('active'); });
         }
 
         function closeModal() { 
             const contentEl = document.querySelector('.modal-content');
             contentEl.classList.remove('active');
-            setTimeout(() => { document.getElementById('modal-overlay').style.display = 'none'; }, 200);
+            setTimeout(() => { 
+                if(!contentEl.classList.contains('active')) {
+                    document.getElementById('modal-overlay').style.display = 'none'; 
+                    document.getElementById('modal-data').innerHTML = ''; // Liberación inmediata de iFrames en memoria
+                }
+            }, 200);
         }
         
         function showSection(id) {
-            currentSection = id; document.querySelectorAll('.section').forEach(s => s.classList.remove('section-active')); document.getElementById(id).classList.add('section-active');
-            const searchBox = document.getElementById('search-box');
+            state.currentSection = id; 
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('section-active')); 
+            document.getElementById(id).classList.add('section-active');
             
+            const searchBox = document.getElementById('search-box');
             if (id === 'reglas' || id === 'noticias') { 
                 searchBox.style.display = 'none'; 
                 if (id === 'noticias') renderNoticiasFeed();
@@ -1018,10 +991,12 @@
                 searchBox.style.display = 'block'; 
                 document.getElementById('quick-filters').style.display = (id === 'leaderboard') ? 'none' : 'flex'; 
                 document.getElementById('global-search').value = ''; 
-                renderAll(); 
+                filterList();
             }
         }
-        window.onload = fetchData;
+
+        // Carga nativa inicializada de forma segura
+        window.addEventListener('DOMContentLoaded', fetchData);
     </script>
 </body>
 </html>
